@@ -215,10 +215,10 @@ def main(args):
         print_box("Creating wandboard...")
         run = wandb.init(
             config=all_args,
-            project=all_args.project_name,
+            project='enemy',
             # project=all_args.env_name,
-            entity=all_args.user_name,
-            notes=socket.gethostname(),
+            # entity=all_args.user_name,
+            # notes=socket.gethostname(),
             name=str(all_args.algorithm_name)
             + "_"
             + str(all_args.experiment_name)
@@ -313,3 +313,5 @@ def main(args):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
+    print('And I am ok')

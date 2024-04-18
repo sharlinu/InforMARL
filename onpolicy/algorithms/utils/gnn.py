@@ -5,7 +5,9 @@ from torch import Tensor
 import torch.nn as nn
 import torch_geometric
 import torch_geometric.nn as gnn
-from torch_geometric.data import Data, DataLoader
+
+from torch_geometric.data import Data #, DataLoader
+from torch_geometric.loader import DataLoader
 from torch_geometric.nn import MessagePassing, TransformerConv
 from torch_geometric.utils import add_self_loops, to_dense_batch
 

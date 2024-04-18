@@ -1,7 +1,8 @@
 import torch
 from torch_geometric.nn import GCNConv
 from torch_geometric.utils import dense_to_sparse, to_dense_batch
-from torch_geometric.data import Data, DataLoader
+from torch_geometric.data import Data #, DataLoader
+from torch_geometric.loader import DataLoader
 
 batch_size = 3
 num_nodes = 4
