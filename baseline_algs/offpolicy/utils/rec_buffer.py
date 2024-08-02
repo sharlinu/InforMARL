@@ -1,6 +1,6 @@
 import numpy as np
-from baselines.offpolicy.utils.util import get_dim_from_space
-from baselines.offpolicy.utils.segment_tree import SumSegmentTree, MinSegmentTree
+from baseline_algs.offpolicy.utils.util import get_dim_from_space
+from baseline_algs.offpolicy.utils.segment_tree import SumSegmentTree, MinSegmentTree
 
 
 def _cast(x):

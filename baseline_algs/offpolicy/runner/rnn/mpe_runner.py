@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import time
 
-from baselines.offpolicy.runner.rnn.base_runner import RecRunner
+from baseline_algs.offpolicy.runner.rnn.base_runner import RecRunner
 
 
 class MPERunner(RecRunner):

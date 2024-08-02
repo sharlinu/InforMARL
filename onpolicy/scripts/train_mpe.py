@@ -94,6 +94,9 @@ def parse_args(args, parser):
         "--num_obstacles", type=int, default=3, help="Number of obstacles"
     )
     parser.add_argument(
+        "--reward_sparsity", type=float, default=1, help="How sparse the dense rewards in continuous domain are"
+    )
+    parser.add_argument(
         "--collaborative",
         type=lambda x: bool(strtobool(x)),
         default=True,
@@ -313,5 +316,3 @@ def main(args):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
-    print('And I am ok')

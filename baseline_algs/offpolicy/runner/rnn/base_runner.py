@@ -4,11 +4,11 @@ import wandb
 import torch
 from torch.utils.tensorboard import SummaryWriter
 
-from baselines.offpolicy.utils.rec_buffer import (
+from baseline_algs.offpolicy.utils.rec_buffer import (
     RecReplayBuffer,
     PrioritizedRecReplayBuffer,
 )
-from baselines.offpolicy.utils.util import DecayThenFlatSchedule
+from baseline_algs.offpolicy.utils.util import DecayThenFlatSchedule
 
 
 class RecRunner(object):
@@ -118,42 +118,42 @@ class RecRunner(object):
 
         # initialize all the policies and organize the agents corresponding to each policy
         if self.algorithm_name == "rmatd3":
-            from baselines.offpolicy.algorithms.r_matd3.algorithm.rMATD3Policy import (
+            from baseline_algs.offpolicy.algorithms.r_matd3.algorithm.rMATD3Policy import (
                 R_MATD3Policy as Policy,
             )
-            from baselines.offpolicy.algorithms.r_matd3.r_matd3 import (
+            from baseline_algs.offpolicy.algorithms.r_matd3.r_matd3 import (
                 R_MATD3 as TrainAlgo,
             )
         elif self.algorithm_name == "rmaddpg":
             assert (
                 self.actor_train_interval_step == 1
             ), "rmaddpg only supports actor_train_interval_step=1."
-            from baselines.offpolicy.algorithms.r_maddpg.algorithm.rMADDPGPolicy import (
+            from baseline_algs.offpolicy.algorithms.r_maddpg.algorithm.rMADDPGPolicy import (
                 R_MADDPGPolicy as Policy,
             )
-            from baselines.offpolicy.algorithms.r_maddpg.r_maddpg import (
+            from baseline_algs.offpolicy.algorithms.r_maddpg.r_maddpg import (
                 R_MADDPG as TrainAlgo,
             )
         elif self.algorithm_name == "rmasac":
             assert (
                 self.actor_train_interval_step == 1
             ), "rmasac only support actor_train_interval_step=1."
-            from baselines.offpolicy.algorithms.r_masac.algorithm.rMASACPolicy import (
+            from baseline_algs.offpolicy.algorithms.r_masac.algorithm.rMASACPolicy import (
                 R_MASACPolicy as Policy,
             )
-            from baselines.offpolicy.algorithms.r_masac.r_masac import (
+            from baseline_algs.offpolicy.algorithms.r_masac.r_masac import (
                 R_MASAC as TrainAlgo,
             )
         elif self.algorithm_name == "qmix":
-            from baselines.offpolicy.algorithms.qmix.algorithm.QMixPolicy import (
+            from baseline_algs.offpolicy.algorithms.qmix.algorithm.QMixPolicy import (
                 QMixPolicy as Policy,
             )
-            from baselines.offpolicy.algorithms.qmix.qmix import QMix as TrainAlgo
+            from baseline_algs.offpolicy.algorithms.qmix.qmix import QMix as TrainAlgo
         elif self.algorithm_name == "vdn":
-            from baselines.offpolicy.algorithms.vdn.algorithm.VDNPolicy import (
+            from baseline_algs.offpolicy.algorithms.vdn.algorithm.VDNPolicy import (
                 VDNPolicy as Policy,
             )
-            from baselines.offpolicy.algorithms.vdn.vdn import VDN as TrainAlgo
+            from baseline_algs.offpolicy.algorithms.vdn.vdn import VDN as TrainAlgo
         else:
             raise NotImplementedError
 

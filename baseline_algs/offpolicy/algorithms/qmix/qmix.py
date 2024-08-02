@@ -1,11 +1,11 @@
 import argparse
 import torch
 import copy
-from baselines.offpolicy.utils.util import soft_update, huber_loss, mse_loss, to_torch
-from baselines.offpolicy.algorithms.qmix.algorithm.q_mixer import QMixer
-from baselines.offpolicy.algorithms.vdn.algorithm.vdn_mixer import VDNMixer
-from baselines.offpolicy.algorithms.base.trainer import Trainer
-from baselines.offpolicy.utils.popart import PopArt
+from baseline_algs.offpolicy.utils.util import soft_update, huber_loss, mse_loss, to_torch
+from baseline_algs.offpolicy.algorithms.qmix.algorithm.q_mixer import QMixer
+from baseline_algs.offpolicy.algorithms.vdn.algorithm.vdn_mixer import VDNMixer
+from baseline_algs.offpolicy.algorithms.base.trainer import Trainer
+from baseline_algs.offpolicy.utils.popart import PopArt
 import numpy as np
 
 

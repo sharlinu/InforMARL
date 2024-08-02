@@ -748,6 +748,7 @@ class MultiAgentGraphEnv(MultiAgentBaseEnv):
             node_obs, adj = self.graph_observation_callback(agent, self.world)
             node_obs_dim = node_obs.shape
             adj_dim = adj.shape
+            # adj_dim = adj[0].shape
             edge_dim = 1  # NOTE hardcoding edge dimension
             agent_id_dim = 1  # NOTE hardcoding agent id dimension
             self.node_observation_space.append(

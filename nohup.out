@@ -1,0 +1,1283 @@
+Initializing navigation with fixed parameters
+__________________________________________________
+Choose to use gpu...
+__________________________________________________
+__________________________________________________
+||                  Arguments                   ||
+__________________________________________________
+|| algorithm_name: rmappo                       ||
+|| project_name: informarl                      ||
+|| experiment_name: informarl                   ||
+|| seed: 100                                    ||
+|| cuda: True                                   ||
+|| cuda_deterministic: True                     ||
+|| n_training_threads: 1                        ||
+|| n_rollout_threads: 64                        ||
+|| n_eval_rollout_threads: 1                    ||
+|| n_render_rollout_threads: 1                  ||
+|| num_env_steps: 4000000                       ||
+|| user_name: marl                              ||
+|| use_wandb: True                              ||
+|| env_name: GraphMPE                           ||
+|| use_obs_instead_of_state: False              ||
+|| world_size: 2                                ||
+|| num_scripted_agents: 0                       ||
+|| obs_type: global                             ||
+|| max_edge_dist: 1                             ||
+|| num_nbd_entities: 3                          ||
+|| use_comm: False                              ||
+|| episode_length: 25                           ||
+|| share_policy: True                           ||
+|| use_centralized_V: True                      ||
+|| stacked_frames: 1                            ||
+|| use_stacked_frames: False                    ||
+|| hidden_size: 64                              ||
+|| layer_N: 1                                   ||
+|| use_ReLU: False                              ||
+|| use_popart: True                             ||
+|| use_valuenorm: False                         ||
+|| use_feature_normalization: True              ||
+|| use_orthogonal: True                         ||
+|| gain: 0.01                                   ||
+|| split_batch: False                           ||
+|| max_batch_size: 32                           ||
+|| use_naive_recurrent_policy: False            ||
+|| use_recurrent_policy: True                   ||
+|| recurrent_N: 1                               ||
+|| data_chunk_length: 10                        ||
+|| lr: 0.0007                                   ||
+|| critic_lr: 0.0007                            ||
+|| opti_eps: 1e-05                              ||
+|| weight_decay: 0                              ||
+|| ppo_epoch: 10                                ||
+|| use_clipped_value_loss: True                 ||
+|| clip_param: 0.2                              ||
+|| num_mini_batch: 1                            ||
+|| entropy_coef: 0.01                           ||
+|| value_loss_coef: 1                           ||
+|| use_max_grad_norm: True                      ||
+|| max_grad_norm: 10.0                          ||
+|| use_gae: True                                ||
+|| gamma: 0.99                                  ||
+|| gae_lambda: 0.95                             ||
+|| use_proper_time_limits: False                ||
+|| use_huber_loss: True                         ||
+|| use_value_active_masks: True                 ||
+|| use_policy_active_masks: True                ||
+|| huber_delta: 10.0                            ||
+|| use_linear_lr_decay: False                   ||
+|| save_interval: 1                             ||
+|| log_interval: 5                              ||
+|| use_eval: False                              ||
+|| eval_interval: 25                            ||
+|| eval_episodes: 32                            ||
+|| save_gifs: False                             ||
+|| use_render: False                            ||
+|| render_episodes: 5                           ||
+|| ifi: 0.1                                     ||
+|| render_eval: False                           ||
+|| model_dir: None                              ||
+|| verbose: True                                ||
+|| scenario_name: navigation_graph              ||
+|| num_landmarks: 3                             ||
+|| num_agents: 7                                ||
+|| num_obstacles: 3                             ||
+|| reward_sparsity: 1                           ||
+|| collaborative: True                          ||
+|| max_speed: 2                                 ||
+|| collision_rew: 5.0                           ||
+|| goal_rew: 5                                  ||
+|| min_dist_thresh: 0.05                        ||
+|| use_dones: False                             ||
+|| num_embeddings: 3                            ||
+|| embedding_size: 2                            ||
+|| embed_hidden_size: 16                        ||
+|| embed_layer_N: 1                             ||
+|| embed_use_ReLU: True                         ||
+|| embed_add_self_loop: False                   ||
+|| gnn_hidden_size: 16                          ||
+|| gnn_num_heads: 3                             ||
+|| gnn_concat_heads: False                      ||
+|| gnn_layer_N: 2                               ||
+|| gnn_use_ReLU: True                           ||
+|| graph_feat_type: global                      ||
+|| actor_graph_aggr: node                       ||
+|| critic_graph_aggr: global                    ||
+|| global_aggr_type: mean                       ||
+|| use_cent_obs: False                          ||
+|| auto_mini_batch_size: False                  ||
+|| target_mini_batch_size: 32                   ||
+__________________________________________________
+__________________________________________________
+Creating wandboard...
+__________________________________________________
+wandb: Currently logged in as: sharlinu (golde). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.5 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.0
+wandb: Run data is saved locally in /home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/results/GraphMPE/navigation_graph/rmappo/informarl/wandb/run-20240801_171359-0kt6imc6
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run rmappo_informarl_seed100
+wandb: ⭐️ View project at https://wandb.ai/golde/enemy
+wandb: 🚀 View run at https://wandb.ai/golde/enemy/runs/0kt6imc6
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+<unknown>:105: DeprecationWarning: invalid escape sequence \i
+Overriding Observation dimension
+Overriding Observation dimension
+________________________________________________________________________________
+Actor Network
+________________________________________________________________________________
+________________________________________________________________________________
+GR_Actor(
+  (gnn_base): GNNBase(
+    (gnn): TransformerConvNet(
+      (active_func): ReLU()
+      (embed_layer): EmbedConv()
+      (gnn1): TransformerConv(16, 16, heads=3)
+      (gnn2): ModuleList(
+        (0-1): 2 x TransformerConv(16, 16, heads=3)
+      )
+    )
+  )
+  (base): MLPBase(
+    (feature_norm): LayerNorm((22,), eps=1e-05, elementwise_affine=True)
+    (mlp): MLPLayer(
+      (fc1): Sequential(
+        (0): Linear(in_features=22, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc_h): Sequential(
+        (0): Linear(in_features=64, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc2): ModuleList(
+        (0): Sequential(
+          (0): Linear(in_features=64, out_features=64, bias=True)
+          (1): Tanh()
+          (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (rnn): RNNLayer(
+    (rnn): GRU(64, 64)
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (act): ACTLayer(
+    (action_out): Categorical(
+      (linear): Linear(in_features=64, out_features=5, bias=True)
+    )
+  )
+)
+________________________________________________________________________________
+________________________________________________________________________________
+Critic Network
+________________________________________________________________________________
+________________________________________________________________________________
+GR_Critic(
+  (gnn_base): GNNBase(
+    (gnn): TransformerConvNet(
+      (active_func): ReLU()
+      (embed_layer): EmbedConv()
+      (gnn1): TransformerConv(16, 16, heads=3)
+      (gnn2): ModuleList(
+        (0-1): 2 x TransformerConv(16, 16, heads=3)
+      )
+    )
+  )
+  (base): MLPBase(
+    (feature_norm): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+    (mlp): MLPLayer(
+      (fc1): Sequential(
+        (0): Linear(in_features=16, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc_h): Sequential(
+        (0): Linear(in_features=64, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc2): ModuleList(
+        (0): Sequential(
+          (0): Linear(in_features=64, out_features=64, bias=True)
+          (1): Tanh()
+          (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (rnn): RNNLayer(
+    (rnn): GRU(64, 64)
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (v_out): PopArt()
+)
+________________________________________________________________________________
+Traceback (most recent call last):
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/scripts/train_mpe.py", line 318, in <module>
+    main(sys.argv[1:])
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/scripts/train_mpe.py", line 303, in main
+    runner.run()
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/runner/shared/graph_mpe_runner.py", line 48, in run
+    ) = self.collect(step)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/runner/shared/graph_mpe_runner.py", line 149, in collect
+    ) = self.trainer.policy.get_actions(
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/graph_MAPPOPolicy.py", line 163, in get_actions
+    actions, action_log_probs, rnn_states_actor = self.actor.forward(
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/graph_actor_critic.py", line 170, in forward
+    nbd_features = self.gnn_base(node_obs, adj, agent_id)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/utils/gnn.py", line 488, in forward
+    x = self.gnn(node_obs, adj, agent_id)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/utils/gnn.py", line 278, in forward
+    x = self.active_func(self.gnn1(x, edge_index, edge_attr))
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch_geometric/nn/conv/transformer_conv.py", line 229, in forward
+    out = self.propagate(edge_index, query=query, key=key, value=value,
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch_geometric/nn/conv/message_passing.py", line 547, in propagate
+    out = self.message(**msg_kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch_geometric/nn/conv/transformer_conv.py", line 266, in message
+    key_j = key_j + edge_attr
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 14.00 MiB. GPU 0 has a total capacity of 9.67 GiB of which 3.31 MiB is free. Process 8640 has 9.20 GiB memory in use. Including non-PyTorch memory, this process has 388.00 MiB memory in use. Of the allocated memory 67.11 MiB is allocated by PyTorch, and 18.89 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+wandb: - 0.005 MB of 0.005 MB uploadedwandb: \ 0.005 MB of 0.005 MB uploadedwandb: | 0.005 MB of 0.005 MB uploadedwandb: / 0.005 MB of 0.005 MB uploadedwandb: - 0.005 MB of 0.005 MB uploadedwandb: 🚀 View run rmappo_informarl_seed100 at: https://wandb.ai/golde/enemy/runs/0kt6imc6
+wandb: ️⚡ View job at https://wandb.ai/golde/enemy/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjE2MTU4MTI2MA==/version_details/v17
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./onpolicy/results/GraphMPE/navigation_graph/rmappo/informarl/wandb/run-20240801_171359-0kt6imc6/logs
+Initializing navigation with fixed parameters
+__________________________________________________
+Choose to use gpu...
+__________________________________________________
+__________________________________________________
+||                  Arguments                   ||
+__________________________________________________
+|| algorithm_name: rmappo                       ||
+|| project_name: informarl                      ||
+|| experiment_name: informarl                   ||
+|| seed: 100                                    ||
+|| cuda: True                                   ||
+|| cuda_deterministic: True                     ||
+|| n_training_threads: 1                        ||
+|| n_rollout_threads: 64                        ||
+|| n_eval_rollout_threads: 1                    ||
+|| n_render_rollout_threads: 1                  ||
+|| num_env_steps: 4000000                       ||
+|| user_name: marl                              ||
+|| use_wandb: True                              ||
+|| env_name: GraphMPE                           ||
+|| use_obs_instead_of_state: False              ||
+|| world_size: 2                                ||
+|| num_scripted_agents: 0                       ||
+|| obs_type: global                             ||
+|| max_edge_dist: 1                             ||
+|| num_nbd_entities: 3                          ||
+|| use_comm: False                              ||
+|| episode_length: 25                           ||
+|| share_policy: True                           ||
+|| use_centralized_V: True                      ||
+|| stacked_frames: 1                            ||
+|| use_stacked_frames: False                    ||
+|| hidden_size: 64                              ||
+|| layer_N: 1                                   ||
+|| use_ReLU: False                              ||
+|| use_popart: True                             ||
+|| use_valuenorm: False                         ||
+|| use_feature_normalization: True              ||
+|| use_orthogonal: True                         ||
+|| gain: 0.01                                   ||
+|| split_batch: False                           ||
+|| max_batch_size: 32                           ||
+|| use_naive_recurrent_policy: False            ||
+|| use_recurrent_policy: True                   ||
+|| recurrent_N: 1                               ||
+|| data_chunk_length: 10                        ||
+|| lr: 0.0007                                   ||
+|| critic_lr: 0.0007                            ||
+|| opti_eps: 1e-05                              ||
+|| weight_decay: 0                              ||
+|| ppo_epoch: 10                                ||
+|| use_clipped_value_loss: True                 ||
+|| clip_param: 0.2                              ||
+|| num_mini_batch: 1                            ||
+|| entropy_coef: 0.01                           ||
+|| value_loss_coef: 1                           ||
+|| use_max_grad_norm: True                      ||
+|| max_grad_norm: 10.0                          ||
+|| use_gae: True                                ||
+|| gamma: 0.99                                  ||
+|| gae_lambda: 0.95                             ||
+|| use_proper_time_limits: False                ||
+|| use_huber_loss: True                         ||
+|| use_value_active_masks: True                 ||
+|| use_policy_active_masks: True                ||
+|| huber_delta: 10.0                            ||
+|| use_linear_lr_decay: False                   ||
+|| save_interval: 1                             ||
+|| log_interval: 5                              ||
+|| use_eval: False                              ||
+|| eval_interval: 25                            ||
+|| eval_episodes: 32                            ||
+|| save_gifs: False                             ||
+|| use_render: False                            ||
+|| render_episodes: 5                           ||
+|| ifi: 0.1                                     ||
+|| render_eval: False                           ||
+|| model_dir: None                              ||
+|| verbose: True                                ||
+|| scenario_name: navigation_graph              ||
+|| num_landmarks: 3                             ||
+|| num_agents: 7                                ||
+|| num_obstacles: 3                             ||
+|| reward_sparsity: 1                           ||
+|| collaborative: True                          ||
+|| max_speed: 2                                 ||
+|| collision_rew: 5.0                           ||
+|| goal_rew: 5                                  ||
+|| min_dist_thresh: 0.05                        ||
+|| use_dones: False                             ||
+|| num_embeddings: 3                            ||
+|| embedding_size: 2                            ||
+|| embed_hidden_size: 16                        ||
+|| embed_layer_N: 1                             ||
+|| embed_use_ReLU: True                         ||
+|| embed_add_self_loop: False                   ||
+|| gnn_hidden_size: 16                          ||
+|| gnn_num_heads: 3                             ||
+|| gnn_concat_heads: False                      ||
+|| gnn_layer_N: 2                               ||
+|| gnn_use_ReLU: True                           ||
+|| graph_feat_type: global                      ||
+|| actor_graph_aggr: node                       ||
+|| critic_graph_aggr: global                    ||
+|| global_aggr_type: mean                       ||
+|| use_cent_obs: False                          ||
+|| auto_mini_batch_size: False                  ||
+|| target_mini_batch_size: 32                   ||
+__________________________________________________
+__________________________________________________
+Creating wandboard...
+__________________________________________________
+wandb: Currently logged in as: sharlinu (golde). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.17.5 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.0
+wandb: Run data is saved locally in /home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/results/GraphMPE/navigation_graph/rmappo/informarl/wandb/run-20240801_172358-tyquzltc
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run rmappo_informarl_seed100
+wandb: ⭐️ View project at https://wandb.ai/golde/enemy
+wandb: 🚀 View run at https://wandb.ai/golde/enemy/runs/tyquzltc
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version >=1.16.5 and <1.23.0 is required for this version of SciPy (detected version 1.24.3
+  warnings.warn(f"A NumPy version >={np_minversion} and <{np_maxversion}"
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+created scenarioReward sparsity of 1
+
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+created scenario
+Initialising graph navigation
+Reward sparsity of 1
+<unknown>:105: DeprecationWarning: invalid escape sequence \i
+Overriding Observation dimension
+Overriding Observation dimension
+________________________________________________________________________________
+Actor Network
+________________________________________________________________________________
+________________________________________________________________________________
+GR_Actor(
+  (gnn_base): GNNBase(
+    (gnn): TransformerConvNet(
+      (active_func): ReLU()
+      (embed_layer): EmbedConv()
+      (gnn1): TransformerConv(16, 16, heads=3)
+      (gnn2): ModuleList(
+        (0-1): 2 x TransformerConv(16, 16, heads=3)
+      )
+    )
+  )
+  (base): MLPBase(
+    (feature_norm): LayerNorm((22,), eps=1e-05, elementwise_affine=True)
+    (mlp): MLPLayer(
+      (fc1): Sequential(
+        (0): Linear(in_features=22, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc_h): Sequential(
+        (0): Linear(in_features=64, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc2): ModuleList(
+        (0): Sequential(
+          (0): Linear(in_features=64, out_features=64, bias=True)
+          (1): Tanh()
+          (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (rnn): RNNLayer(
+    (rnn): GRU(64, 64)
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (act): ACTLayer(
+    (action_out): Categorical(
+      (linear): Linear(in_features=64, out_features=5, bias=True)
+    )
+  )
+)
+________________________________________________________________________________
+________________________________________________________________________________
+Critic Network
+________________________________________________________________________________
+________________________________________________________________________________
+GR_Critic(
+  (gnn_base): GNNBase(
+    (gnn): TransformerConvNet(
+      (active_func): ReLU()
+      (embed_layer): EmbedConv()
+      (gnn1): TransformerConv(16, 16, heads=3)
+      (gnn2): ModuleList(
+        (0-1): 2 x TransformerConv(16, 16, heads=3)
+      )
+    )
+  )
+  (base): MLPBase(
+    (feature_norm): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+    (mlp): MLPLayer(
+      (fc1): Sequential(
+        (0): Linear(in_features=16, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc_h): Sequential(
+        (0): Linear(in_features=64, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc2): ModuleList(
+        (0): Sequential(
+          (0): Linear(in_features=64, out_features=64, bias=True)
+          (1): Tanh()
+          (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (rnn): RNNLayer(
+    (rnn): GRU(64, 64)
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (v_out): PopArt()
+)
+________________________________________________________________________________
+Average episode rewards is -212.743 	Total timesteps: 1600 	 Percentage complete 0.040
+/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/wandb/util.py:449: DeprecationWarning: 
+Pyarrow will become a required dependency of pandas in the next major release of pandas (pandas 3.0),
+(to allow more performant data types, such as the Arrow string type, and better interoperability with other libraries)
+but was not found to be installed on your system.
+If this would cause problems for you,
+please provide us feedback at https://github.com/pandas-dev/pandas/issues/54466
+        
+  import pandas as pd
+Average episode rewards is -206.610 	Total timesteps: 9600 	 Percentage complete 0.240
+Average episode rewards is -213.650 	Total timesteps: 17600 	 Percentage complete 0.440
+Average episode rewards is -209.316 	Total timesteps: 25600 	 Percentage complete 0.640
+Average episode rewards is -180.971 	Total timesteps: 33600 	 Percentage complete 0.840
+Average episode rewards is -175.655 	Total timesteps: 41600 	 Percentage complete 1.040
+Average episode rewards is -160.357 	Total timesteps: 49600 	 Percentage complete 1.240
+Average episode rewards is -157.939 	Total timesteps: 57600 	 Percentage complete 1.440
+Traceback (most recent call last):
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/scripts/train_mpe.py", line 318, in <module>
+    main(sys.argv[1:])
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/scripts/train_mpe.py", line 303, in main
+    runner.run()
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/runner/shared/graph_mpe_runner.py", line 76, in run
+    train_infos = self.train()
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/runner/shared/base_runner.py", line 168, in train
+    train_infos = self.trainer.train(self.buffer)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/graph_mappo.py", line 329, in train
+    ) = self.ppo_update(sample, update_actor)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/graph_mappo.py", line 170, in ppo_update
+    values, action_log_probs, dist_entropy = self.policy.evaluate_actions(
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/graph_MAPPOPolicy.py", line 267, in evaluate_actions
+    values, _ = self.critic.forward(
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/graph_actor_critic.py", line 399, in forward
+    nbd_features = self.gnn_base(
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/utils/gnn.py", line 488, in forward
+    x = self.gnn(node_obs, adj, agent_id)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/algorithms/utils/gnn.py", line 282, in forward
+    x = self.active_func(self.gnn2[i](x, edge_index, edge_attr))
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch_geometric/nn/conv/transformer_conv.py", line 229, in forward
+    out = self.propagate(edge_index, query=query, key=key, value=value,
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch_geometric/nn/conv/message_passing.py", line 547, in propagate
+    out = self.message(**msg_kwargs)
+  File "/home/utke_s@WMGDS.WMG.WARWICK.AC.UK/miniconda3/envs/MADRL_py39/lib/python3.9/site-packages/torch_geometric/nn/conv/transformer_conv.py", line 277, in message
+    out = out * alpha.view(-1, self.heads, 1)
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 352.00 MiB. GPU 0 has a total capacity of 9.67 GiB of which 60.44 MiB is free. Including non-PyTorch memory, this process has 9.53 GiB memory in use. Of the allocated memory 8.90 GiB is allocated by PyTorch, and 318.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+wandb: 
+wandb: Run history:
+wandb:                actor_grad_norm ▂▂▁▃▄▅█▆
+wandb:            agent0/dist_to_goal ▇▆█▅▄▂▁▁
+wandb:      agent0/individual_rewards ▄▄▁▅▇▇██
+wandb:        agent0/min_time_to_goal █▁▆▃▃▅▁▂
+wandb:    agent0/num_agent_collisions ▁▂▅▁▅▄█▆
+wandb: agent0/num_obstacle_collisions █▂▁▅▁▄█▇
+wandb:            agent0/time_to_goal ██▆▄█▅▁▅
+wandb:            agent1/dist_to_goal ▇█▇▇▄▃▂▁
+wandb:      agent1/individual_rewards ▃▃▂▁▅▆█▇
+wandb:        agent1/min_time_to_goal ▆▃▂█▁▆▅▂
+wandb:    agent1/num_agent_collisions ▁▄▃▃▃█▆▄
+wandb: agent1/num_obstacle_collisions ▁▄█▇▅▅▃▁
+wandb:            agent1/time_to_goal █▅▅█▅█▆▁
+wandb:            agent2/dist_to_goal ██▇▆▅▃▃▁
+wandb:      agent2/individual_rewards ▁▁▂▄▄▅██
+wandb:        agent2/min_time_to_goal ▅▄▅▄▁▆▄█
+wandb:    agent2/num_agent_collisions ▂▃▁▄▃█▃▄
+wandb: agent2/num_obstacle_collisions ▃▄▁▇▂▃▃█
+wandb:            agent2/time_to_goal █▁▄█▂▆▄▂
+wandb:            agent3/dist_to_goal ▆▆██▅▁▂▁
+wandb:      agent3/individual_rewards ▅▅▃▁▅▇██
+wandb:        agent3/min_time_to_goal ▁▄▁▅▄▄▇█
+wandb:    agent3/num_agent_collisions ▁▃▂▃▄▇█▄
+wandb: agent3/num_obstacle_collisions ▃█▄▁▂█▁█
+wandb:            agent3/time_to_goal ▇▆▆█▇▆▃▁
+wandb:            agent4/dist_to_goal █▇█▆▄▂▂▁
+wandb:      agent4/individual_rewards ▂▂▁▂▄▅▆█
+wandb:        agent4/min_time_to_goal █▃▅▃▁▆▇▆
+wandb:    agent4/num_agent_collisions ▁▃▂▁▂█▃▄
+wandb: agent4/num_obstacle_collisions ▅▁▅▇██▃█
+wandb:            agent4/time_to_goal ██▇▆▇▄▆▁
+wandb:            agent5/dist_to_goal ▇█▇▇▄▃▂▁
+wandb:      agent5/individual_rewards ▁▁▂▁▅▄█▆
+wandb:        agent5/min_time_to_goal █▃▃▁▁▃▆▄
+wandb:    agent5/num_agent_collisions ▁▃▁▂▅█▃▄
+wandb: agent5/num_obstacle_collisions ▆▇▄▁▇▆▆█
+wandb:            agent5/time_to_goal █▁█▇▆▅▅▆
+wandb:            agent6/dist_to_goal ▆▆█▇▄▂▁▁
+wandb:      agent6/individual_rewards ▁▄▁▂▅▄█▇
+wandb:        agent6/min_time_to_goal ▃▁▇█▇▄▄█
+wandb:    agent6/num_agent_collisions ▄▄▂▃▁█▄█
+wandb: agent6/num_obstacle_collisions ▃▂▂▁▂▄▂█
+wandb:            agent6/time_to_goal ▆▄█▆█▂▁▃
+wandb:        average_episode_rewards ▁▂▁▂▅▆██
+wandb:               critic_grad_norm █▁▁▂▂▁▂▂
+wandb:                   dist_entropy █▇▇▆▆▃▁▁
+wandb:                    policy_loss ▇██▆▅▄▁▂
+wandb:                          ratio █▃▅▅▁▅▅▄
+wandb:                     value_loss █▂▂▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:                actor_grad_norm 0.12188
+wandb:            agent0/dist_to_goal 0.56652
+wandb:      agent0/individual_rewards -0.8009
+wandb:        agent0/min_time_to_goal 0.46522
+wandb:    agent0/num_agent_collisions 0.71875
+wandb: agent0/num_obstacle_collisions 0.45312
+wandb:            agent0/time_to_goal 2.45781
+wandb:            agent1/dist_to_goal 0.52976
+wandb:      agent1/individual_rewards -0.68548
+wandb:        agent1/min_time_to_goal 0.44947
+wandb:    agent1/num_agent_collisions 0.59375
+wandb: agent1/num_obstacle_collisions 0.15625
+wandb:            agent1/time_to_goal 2.44062
+wandb:            agent2/dist_to_goal 0.46194
+wandb:      agent2/individual_rewards -0.69491
+wandb:        agent2/min_time_to_goal 0.49223
+wandb:    agent2/num_agent_collisions 0.60938
+wandb: agent2/num_obstacle_collisions 0.71875
+wandb:            agent2/time_to_goal 2.44219
+wandb:            agent3/dist_to_goal 0.59287
+wandb:      agent3/individual_rewards -0.82724
+wandb:        agent3/min_time_to_goal 0.55067
+wandb:    agent3/num_agent_collisions 0.6875
+wandb: agent3/num_obstacle_collisions 0.5
+wandb:            agent3/time_to_goal 2.40156
+wandb:            agent4/dist_to_goal 0.51311
+wandb:      agent4/individual_rewards -0.43445
+wandb:        agent4/min_time_to_goal 0.47317
+wandb:    agent4/num_agent_collisions 0.65625
+wandb: agent4/num_obstacle_collisions 0.45312
+wandb:            agent4/time_to_goal 2.325
+wandb:            agent5/dist_to_goal 0.61244
+wandb:      agent5/individual_rewards -0.84614
+wandb:        agent5/min_time_to_goal 0.48894
+wandb:    agent5/num_agent_collisions 0.64062
+wandb: agent5/num_obstacle_collisions 0.375
+wandb:            agent5/time_to_goal 2.45938
+wandb:            agent6/dist_to_goal 0.57346
+wandb:      agent6/individual_rewards -0.72971
+wandb:        agent6/min_time_to_goal 0.48914
+wandb:    agent6/num_agent_collisions 0.875
+wandb: agent6/num_obstacle_collisions 0.92188
+wandb:            agent6/time_to_goal 2.42188
+wandb:        average_episode_rewards -157.9389
+wandb:               critic_grad_norm 3.19894
+wandb:                   dist_entropy 1.36777
+wandb:                    policy_loss -0.00566
+wandb:                          ratio 0.99995
+wandb:                     value_loss 0.06851
+wandb: 
+wandb: 🚀 View run rmappo_informarl_seed100 at: https://wandb.ai/golde/enemy/runs/tyquzltc
+wandb: ️⚡ View job at https://wandb.ai/golde/enemy/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjE2MTU4MTI2MA==/version_details/v17
+wandb: Synced 6 W&B file(s), 0 media file(s), 2 artifact file(s) and 3 other file(s)
+wandb: Find logs at: ./onpolicy/results/GraphMPE/navigation_graph/rmappo/informarl/wandb/run-20240801_172358-tyquzltc/logs

@@ -1,11 +1,11 @@
 import numpy as np
 import torch
-from baselines.offpolicy.algorithms.qmix.algorithm.agent_q_function import (
+from baseline_algs.offpolicy.algorithms.qmix.algorithm.agent_q_function import (
     AgentQFunction,
 )
-from baselines.offpolicy.algorithms.base.recurrent_policy import RecurrentPolicy
+from baseline_algs.offpolicy.algorithms.base.recurrent_policy import RecurrentPolicy
 from torch.distributions import Categorical, OneHotCategorical
-from baselines.offpolicy.utils.util import (
+from baseline_algs.offpolicy.utils.util import (
     get_dim_from_space,
     is_discrete,
     is_multidiscrete,

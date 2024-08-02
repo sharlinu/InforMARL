@@ -323,6 +323,7 @@ class Scenario(BaseScenario):
                     break
         return collision
 
+
     # check collision of agent with another agent
     def is_collision(self, agent1: Agent, agent2: Agent) -> bool:
         delta_pos = agent1.state.p_pos - agent2.state.p_pos
@@ -407,6 +408,7 @@ class Scenario(BaseScenario):
         goal_pos.append(agents_goal.state.p_pos - agent.state.p_pos)
         return np.concatenate([agent.state.p_vel, agent.state.p_pos] + goal_pos)
 
+
     def get_id(self, agent: Agent) -> arr:
         return np.array([agent.global_id])
 
@@ -449,6 +451,69 @@ class Scenario(BaseScenario):
         adj = world.cached_dist_mag
 
         return node_obs, adj
+
+    def rel_graph_observation(self, agent: Agent, world: World) -> Tuple[arr, arr]:
+        """
+        FIXME: Take care of the case where edge_list is empty
+        Returns: [node features, adjacency matrix]
+        • Node features (num_entities, num_node_feats):
+            If `global`:
+                • node features are global [pos, vel, goal, entity-type]
+                • edge features are relative distances (just magnitude)
+                NOTE: for `landmarks` and `obstacles` the `goal` is
+                        the same as its position
+            If `relative`:
+                • node features are relative [pos, vel, goal, entity-type] to ego agents
+                • edge features are relative distances (just magnitude)
+                NOTE: for `landmarks` and `obstacles` the `goal` is
+                        the same as its position
+        • Adjacency Matrix (num_entities, num_entities)
+            NOTE: using the distance matrix, need to do some post-processing
+            If `global`:
+                • All close-by entities are connectd together
+            If `relative`:
+                • Only entities close to the ego-agent are connected
+
+        """
+        num_entities = len(world.entities)
+        # node observations
+        node_obs = []
+        if world.graph_feat_type == "global":
+            dists = world.cached_dist_vect
+            spatial_tensors = [np.zeros([len(world.entities), len(world.entities)]) for _ in range(5)]
+            for i, entity in enumerate(world.entities):
+                node_obs_i = self._get_entity_feat_global(entity, world)
+                # TODO add identity layer for agent
+                node_obs.append(node_obs_i)
+                for j, entity in enumerate(world.entities):
+                    # left
+                    if dists[i,j,0] > 0:
+                        spatial_tensors[0][i,j] = 1
+                    # right
+                    elif dists[i,j,0] < 0:
+                        spatial_tensors[1][i,j] = 1
+                    # bottom
+                    if dists[i,j,1] > 0:
+                        spatial_tensors[2][i, j] = 1
+                    # top
+                    elif dists[i,j,1] < 0:
+                        spatial_tensors[3][i, j] = 1
+                    # adj
+                    if (np.linalg.norm(dists[i,j,:]) < self.min_dist_thresh ) and (np.linalg.norm(dists[i,j,:]) !=0) :
+                        spatial_tensors[4][i, j] = 1
+
+        elif world.graph_feat_type == "relative":
+            for i, entity in enumerate(world.entities):
+                node_obs_i = self._get_entity_feat_relative(agent, entity, world)
+                node_obs.append(node_obs_i)
+
+        node_obs = np.array(node_obs)
+
+
+
+        # TODO adj needs to be a list of adj-matrices
+        return node_obs, spatial_tensors
+
 
     def update_graph(self, world: World):
         """
@@ -523,7 +588,7 @@ class Scenario(BaseScenario):
 # actions: [None, ←, →, ↓, ↑, comm1, comm2]
 if __name__ == "__main__":
     from multiagent.environment import MultiAgentGraphEnv
-    from multiagent.policy import InteractivePolicy
+    # from multiagent.policy import InteractivePolicy
 
     # makeshift argparser
     class Args:
@@ -553,7 +618,8 @@ if __name__ == "__main__":
         reset_callback=scenario.reset_world,
         reward_callback=scenario.reward,
         observation_callback=scenario.observation,
-        graph_observation_callback=scenario.graph_observation,
+        # graph_observation_callback=scenario.graph_observation,
+        graph_observation_callback=scenario.rel_graph_observation,
         info_callback=scenario.info_callback,
         done_callback=scenario.done,
         id_callback=scenario.get_id,
@@ -561,9 +627,9 @@ if __name__ == "__main__":
         shared_viewer=False,
     )
     # render call to create viewer window
-    env.render()
+    # env.render()
     # create interactive policies for each agent
-    policies = [InteractivePolicy(env, i) for i in range(env.n)]
+    # policies = [InteractivePolicy(env, i) for i in range(env.n)]
     # execution loop
     obs_n, agent_id_n, node_obs_n, adj_n = env.reset()
     stp = 0
@@ -572,14 +638,15 @@ if __name__ == "__main__":
         act_n = []
         dist_mag = env.world.cached_dist_mag
 
-        for i, policy in enumerate(policies):
-            act_n.append(policy.action(obs_n[i]))
+        # for i, policy in enumerate(policies):
+        #     act_n.append(policy.action(obs_n[i]))
         # step environment
         # print(act_n)
+        act_n = [[0,0,0,1,0],[0,0,0,1,0], [0,0,0,1,0]]
         obs_n, agent_id_n, node_obs_n, adj_n, reward_n, done_n, info_n = env.step(act_n)
         # print(obs_n[0].shape, node_obs_n[0].shape, adj_n[0].shape)
 
         # render all agent views
-        env.render()
+        # env.render()
         stp += 1
         # display rewards

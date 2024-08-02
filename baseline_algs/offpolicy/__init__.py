@@ -1,4 +1,4 @@
-from baselines.offpolicy import algorithms, envs, runner, scripts, utils, config
+from baseline_algs.offpolicy import algorithms, envs, runner, scripts, utils, config
 
 
 __version__ = "0.1.0"

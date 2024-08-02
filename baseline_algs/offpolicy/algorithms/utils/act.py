@@ -1,6 +1,6 @@
 import numpy as np
 import torch.nn as nn
-from baselines.offpolicy.utils.util import init
+from baseline_algs.offpolicy.utils.util import init
 
 
 class ACTLayer(nn.Module):
