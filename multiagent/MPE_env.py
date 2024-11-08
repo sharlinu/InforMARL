@@ -76,7 +76,9 @@ def GraphMPEEnv(args):
         reset_callback=scenario.reset_world,
         reward_callback=scenario.reward,
         observation_callback=scenario.observation,
-        graph_observation_callback=scenario.graph_observation,
+        # graph_observation_callback=scenario.graph_observation, # FIXME: changed manually
+        # graph_observation_callback=scenario.count_graph_observation,
+        graph_observation_callback=scenario.rel_graph_observation,
         update_graph=scenario.update_graph,
         id_callback=scenario.get_id,
         info_callback=scenario.info_callback,

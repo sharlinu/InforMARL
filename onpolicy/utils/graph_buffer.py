@@ -475,6 +475,8 @@ class GraphReplayBuffer(object):
             obs_batch = obs[indices]
             node_obs_batch = node_obs[indices]
             adj_batch = adj[indices]
+            if isinstance(adj_batch, np.int64):
+                print('batch should not be integer')
             agent_id_batch = agent_id[indices]
             share_agent_id_batch = share_agent_id[indices]
             rnn_states_batch = rnn_states[indices]
@@ -589,6 +591,8 @@ class GraphReplayBuffer(object):
                 obs_batch.append(obs[:-1, ind])
                 node_obs_batch.append(node_obs[:-1, ind])
                 adj_batch.append(adj[:-1, ind])
+                if isinstance(adj_batch, np.int64):
+                    print('batch should not be integer')
                 agent_id_batch.append(agent_id[:-1, ind])
                 share_agent_id_batch.append(share_agent_id[:-1, ind])
                 rnn_states_batch.append(rnn_states[0:1, ind])
@@ -715,8 +719,8 @@ class GraphReplayBuffer(object):
             .transpose(1, 2, 0, 3, 4)
             .reshape(-1, *self.node_obs.shape[3:])
         )
-        adj = self.adj[:-1].transpose(1, 2, 0, 3, 4).reshape(-1, *self.adj.shape[3:])
-
+        # adj = self.adj[:-1].transpose(1, 2, 0, 3, 4).reshape(-1, *self.adj.shape[3:])
+        adj = self.adj[:-1].transpose(1, 2, 0, 3, 4, 5).reshape(-1, *self.adj.shape[3:])
         agent_id = _cast(self.agent_id[:-1])
         share_agent_id = _cast(self.share_agent_id[:-1])
 
@@ -812,7 +816,7 @@ class GraphReplayBuffer(object):
             # States is just a (N, -1) from_numpy
             rnn_states_batch = np.stack(rnn_states_batch).reshape(
                 N, *self.rnn_states.shape[3:]
-            )
+            ) # TODO check because I think this is wrong, currently (12,1,64)
             rnn_states_critic_batch = np.stack(rnn_states_critic_batch).reshape(
                 N, *self.rnn_states_critic.shape[3:]
             )
@@ -822,6 +826,8 @@ class GraphReplayBuffer(object):
             obs_batch = _flatten(L, N, obs_batch)
             node_obs_batch = _flatten(L, N, node_obs_batch)
             adj_batch = _flatten(L, N, adj_batch)
+            if isinstance(adj_batch, np.int64):
+                print('batch should not be integer')
             agent_id_batch = _flatten(L, N, agent_id_batch)
             share_agent_id_batch = _flatten(L, N, share_agent_id_batch)
             actions_batch = _flatten(L, N, actions_batch)

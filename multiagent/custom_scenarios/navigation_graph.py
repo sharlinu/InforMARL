@@ -10,6 +10,8 @@ import numpy as np
 from numpy import ndarray as arr
 from scipy import sparse
 import os, sys
+import torch
+from torch_geometric.data import Data as GeometricData
 
 sys.path.append(os.path.abspath(os.getcwd()))
 
@@ -18,6 +20,26 @@ from multiagent.scenario import BaseScenario
 
 entity_mapping = {"agent": 0, "landmark": 1, "obstacle": 2}
 
+def to_gd(data: torch.Tensor, unary_t) -> GeometricData:
+    """
+    takes batch of adjacency geometric data and transforms it to a GeometricData object for torch.geometric
+
+    Parameters
+    --------
+    data : heterogeneous adjacency matrix (nb_relations, nb_objects, nb_objects)
+    """
+    # nb_objects = nb_objects
+    # x = torch.arange(nb_objects).view(-1, 1) #
+    unary_t = torch.tensor(unary_t, dtype=torch.float32)
+    data = data.clone().detach()
+    nz = torch.nonzero(data)
+
+    # list of all edges and what relationtype they have
+    edge_attr = nz[:, 0]
+
+    # list of node to node indicating an edge
+    edge_index = nz[:, 1:].T
+    return GeometricData(x=unary_t, edge_index=edge_index, edge_attr=edge_attr)
 
 class Scenario(BaseScenario):
     def make_world(self, args: argparse.Namespace) -> World:
@@ -66,6 +88,7 @@ class Scenario(BaseScenario):
             Maximum distance to consider to connect the nodes in the graph
         """
         # pull params from args
+        # print('Initialising graph navigation')
         self.world_size = args.world_size
         self.num_agents = args.num_agents
         self.num_scripted_agents = args.num_scripted_agents
@@ -77,6 +100,10 @@ class Scenario(BaseScenario):
         self.min_dist_thresh = args.min_dist_thresh
         self.use_dones = args.use_dones
         self.episode_length = args.episode_length
+        if not hasattr(args, 'reward_sparsity'):
+            self.reward_sparsity = 1
+        else:
+            self.reward_sparsity = args.reward_sparsity
         if not hasattr(args, "max_edge_dist"):
             self.max_edge_dist = 1
             print("_" * 60)
@@ -382,7 +409,7 @@ class Scenario(BaseScenario):
         if dist_to_goal < self.min_dist_thresh:
             rew += self.goal_rew
         else:
-            rew -= dist_to_goal
+            rew -= self.reward_sparsity * dist_to_goal
         if agent.collide:
             for a in world.agents:
                 # do not consider collision with itself
@@ -397,6 +424,40 @@ class Scenario(BaseScenario):
                 rew -= self.collision_rew
         return rew
 
+    def global_observation(self, agent: Agent, world: World) -> np.ndarray:
+        """
+        agent: Agent object
+        world: World object
+        includes information about all entities in the world:
+        returns
+            agent_vel, agent_pos, goal_pos, [other_agents_pos], [obstacles_pos]
+        """
+        # get positions of all entities in this agent's reference frame
+        agent_vel, agent_pos = agent.state.p_vel, agent.state.p_pos
+        agents_goal = world.get_entity("landmark", agent.id)
+        goal_pos = agents_goal.state.p_pos - agent_pos
+        # goal_pos.append(agents_goal.state.p_pos - agent_pos)
+        # communication of all other agents
+        other_agents_pos, obstacle_pos = [], []
+        dist_mag = []
+        # get position of all other agents in this agent's reference frame
+        for other in world.agents:
+            if other is agent:
+                continue
+            other_agents_pos.append(np.array(other.state.p_pos - agent_pos))
+            dist_mag.append(np.linalg.norm(other_agents_pos[-1]))
+        # get position of all obstacles in this agent's reference frame
+        obstacle_pos = []
+        for obstacle in world.obstacles:
+            obstacle_pos.append(np.array(obstacle.state.p_pos - agent_pos))
+            dist_mag.append(np.linalg.norm(obstacle_pos[-1]))
+        other_pos = np.array(
+            other_agents_pos + obstacle_pos
+        )  # remember + is just concatenation of lists
+        other_pos = other_pos.flatten()
+        return np.concatenate([agent_vel, agent_pos, goal_pos, other_pos])
+        # return np.concatenate([agent.state.p_vel, agent.state.p_pos] + goal_pos + other_pos + comm)
+
     def observation(self, agent: Agent, world: World) -> arr:
         """
         Return:
@@ -407,7 +468,6 @@ class Scenario(BaseScenario):
         agents_goal = world.get_entity("landmark", agent.id)
         goal_pos.append(agents_goal.state.p_pos - agent.state.p_pos)
         return np.concatenate([agent.state.p_vel, agent.state.p_pos] + goal_pos)
-
 
     def get_id(self, agent: Agent) -> arr:
         return np.array([agent.global_id])
@@ -446,6 +506,11 @@ class Scenario(BaseScenario):
             for i, entity in enumerate(world.entities):
                 node_obs_i = self._get_entity_feat_relative(agent, entity, world)
                 node_obs.append(node_obs_i)
+        elif world.graph_feat_type == "rgcn":
+            for i, entity in enumerate(world.entities):
+                node_obs_i = self._get_entity_feat_RGCN(agent, entity, world)
+                node_obs.append(node_obs_i)
+
 
         node_obs = np.array(node_obs)
         adj = world.cached_dist_mag
@@ -478,24 +543,25 @@ class Scenario(BaseScenario):
         num_entities = len(world.entities)
         # node observations
         node_obs = []
-        if world.graph_feat_type == "global":
+        if world.graph_feat_type in ["global", 'rgcn']:
             dists = world.cached_dist_vect
             spatial_tensors = [np.zeros([len(world.entities), len(world.entities)]) for _ in range(5)]
             for i, entity in enumerate(world.entities):
-                node_obs_i = self._get_entity_feat_global(entity, world)
+                # node_obs_i = self._get_entity_feat_global(entity, world)
+                node_obs_i = self._get_entity_feat_RGCN(agent, entity, world)
                 # TODO add identity layer for agent
                 node_obs.append(node_obs_i)
                 for j, entity in enumerate(world.entities):
-                    # left
+                    # right
                     if dists[i,j,0] > 0:
                         spatial_tensors[0][i,j] = 1
-                    # right
+                    # left
                     elif dists[i,j,0] < 0:
                         spatial_tensors[1][i,j] = 1
-                    # bottom
+                    # top
                     if dists[i,j,1] > 0:
                         spatial_tensors[2][i, j] = 1
-                    # top
+                    # bottom
                     elif dists[i,j,1] < 0:
                         spatial_tensors[3][i, j] = 1
                     # adj
@@ -508,10 +574,93 @@ class Scenario(BaseScenario):
                 node_obs.append(node_obs_i)
 
         node_obs = np.array(node_obs)
+        spatial_tensors = np.stack(spatial_tensors, axis=-1)
+
+        return node_obs, spatial_tensors
+
+    def count_graph_observation(self, agent: Agent, world: World) -> Tuple[arr, arr]:
+        """
+        FIXME: Take care of the case where edge_list is empty
+        Returns: [node features, adjacency matrix]
+        • Node features (num_entities, num_node_feats):
+            If `global`:
+                • node features are global [pos, vel, goal, entity-type]
+                • edge features are relative distances (just magnitude)
+                NOTE: for `landmarks` and `obstacles` the `goal` is
+                        the same as its position
+            If `relative`:
+                • node features are relative [pos, vel, goal, entity-type] to ego agents
+                • edge features are relative distances (just magnitude)
+                NOTE: for `landmarks` and `obstacles` the `goal` is
+                        the same as its position
+        • Adjacency Matrix (num_entities, num_entities)
+            NOTE: using the distance matrix, need to do some post-processing
+            If `global`:
+                • All close-by entities are connectd together
+            If `relative`:
+                • Only entities close to the ego-agent are connected
+
+        """
+        num_entities = len(world.entities)
+        # node observations
+        node_obs = []
+        if world.graph_feat_type in ["global", 'rgcn']:
+            dists = world.cached_dist_vect
+            spatial_tensors = [np.zeros([len(world.entities), len(world.entities)]) for _ in range(9)]
+            for i, entity in enumerate(world.entities):
+                # node_obs_i = self._get_entity_feat_global(entity, world)
+                node_obs_i = self._get_entity_feat_RGCN(agent, entity, world)
+                # TODO add identity layer for agent
+                node_obs.append(node_obs_i)
+                right = False
+                top = False
+                for j, entity in enumerate(world.entities):
+                    # right
+                    # top
+                    # count = 0
+                    if dists[i,j,1] > 0:
+                        top = True
+                    if dists[i, j, 0] > 0:
+                        if top is True:
+                            if dists[i,j,1] > dists[i,j,0]:
+                                spatial_tensors[0][i,j] = 1
+                #               count += 1
+                            elif dists[i,j,1] < dists[i,j,0]:
+                                spatial_tensors[1][i,j] = 1
+                #                count += 1
+                        else:
+                            if dists[i,j,1] > - dists[i,j,0]:
+                                spatial_tensors[2][i,j] = 1
+                            elif dists[i,j,1] < - dists[i,j,0]:
+                                spatial_tensors[3][i,j] = 1
+                    else:
+                        if top is True:
+                            if dists[i,j,1] > - dists[i,j,0]:
+                                spatial_tensors[4][i,j] = 1
+                            elif dists[i,j,1] < - dists[i,j,0]:
+                                spatial_tensors[5][i,j] = 1
+                        else:
+                            if dists[i,j,1] > dists[i,j,0]:
+                                spatial_tensors[6][i,j] = 1
+                            elif dists[i,j,1] < dists[i,j,0]:
+                                spatial_tensors[7][i,j] = 1
+
+        #            assert count != 0, 'error'
+                    # adj
+                    if (np.linalg.norm(dists[i,j,:]) < self.min_dist_thresh ) and (np.linalg.norm(dists[i,j,:]) !=0) :
+                        spatial_tensors[8][i, j] = 1
 
 
+                        # print('error')
 
-        # TODO adj needs to be a list of adj-matrices
+        elif world.graph_feat_type == "relative":
+            for i, entity in enumerate(world.entities):
+                node_obs_i = self._get_entity_feat_relative(agent, entity, world)
+                node_obs.append(node_obs_i)
+
+        node_obs = np.array(node_obs)
+        spatial_tensors = np.stack(spatial_tensors, axis=-1)
+
         return node_obs, spatial_tensors
 
 
@@ -555,6 +704,33 @@ class Scenario(BaseScenario):
             raise ValueError(f"{entity.name} not supported")
 
         return np.hstack([vel, pos, goal_pos, entity_type])
+
+    def _get_entity_feat_RGCN(self, agent: Agent, entity: Entity, world: World) -> arr:
+        """
+        Returns: ([velocity, position, goal_pos, entity_type])
+        in global coords for the given entity
+        """
+        # pos = entity.state.p_pos
+        vel = entity.state.p_vel
+        target = 0
+        identity = 0
+        if "agent" in entity.name:
+            # goal_pos = world.get_entity("landmark", entity.id).state.p_pos
+            entity_type = entity_mapping["agent"]
+            if agent.id == entity.id:
+                identity = 1
+        elif "landmark" in entity.name:
+            # goal_pos = pos
+            entity_type = entity_mapping["landmark"]
+            if world.get_entity("landmark", agent.id)==entity:
+                target = 1
+        elif "obstacle" in entity.name:
+            # goal_pos = pos
+            entity_type = entity_mapping["obstacle"]
+        else:
+            raise ValueError(f"{entity.name} not supported")
+
+        return np.hstack([vel, entity_type, target, identity])
 
     def _get_entity_feat_relative(
         self, agent: Agent, entity: Entity, world: World
@@ -605,7 +781,8 @@ if __name__ == "__main__":
             self.use_dones: bool = False
             self.episode_length: int = 25
             self.max_edge_dist: float = 1
-            self.graph_feat_type: str = "global"
+            # self.graph_feat_type: str = "global"
+            self.graph_feat_type: str = 'rgcn'
 
     args = Args()
 
@@ -617,14 +794,15 @@ if __name__ == "__main__":
         world=world,
         reset_callback=scenario.reset_world,
         reward_callback=scenario.reward,
-        observation_callback=scenario.observation,
+        # observation_callback=scenario.observation,
+        observation_callback=scenario.global_observation,
         # graph_observation_callback=scenario.graph_observation,
         graph_observation_callback=scenario.rel_graph_observation,
         info_callback=scenario.info_callback,
         done_callback=scenario.done,
         id_callback=scenario.get_id,
         update_graph=scenario.update_graph,
-        shared_viewer=False,
+        shared_viewer=True,
     )
     # render call to create viewer window
     # env.render()
@@ -645,8 +823,32 @@ if __name__ == "__main__":
         act_n = [[0,0,0,1,0],[0,0,0,1,0], [0,0,0,1,0]]
         obs_n, agent_id_n, node_obs_n, adj_n, reward_n, done_n, info_n = env.step(act_n)
         # print(obs_n[0].shape, node_obs_n[0].shape, adj_n[0].shape)
+        adj = [torch.tensor(np.array(adj_n[i]), dtype=torch.int64) for i in range(2)]
+
+        graph = [to_gd(adj[agent], node_obs_n[agent]) for agent in range(2)]
 
         # render all agent views
-        # env.render()
+        env.render()
         stp += 1
         # display rewards
+
+
+# so node_obs_n are 4,7 (n_objects, n_features)
+
+
+#always only one target
+
+# # always only one identity
+# for arr in node_obs_n:
+#     arr[0][:, 3].sum() == 1
+# # always only one target
+# for arr in node_obs_n:
+#     arr[0][:, 4].sum() == 1
+#
+# # arr shape [0] should be the number of entities:
+# for arr in node_obs_n:
+#     arr.shape[0] == len(env.world.entities)
+
+# graph object
+# g.x[:,3].sum() == 1
+# g.x[:,4].sum() == 1

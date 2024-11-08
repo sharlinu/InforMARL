@@ -6,7 +6,7 @@ import torch
 from torch import Tensor
 import torch.nn as nn
 from onpolicy.algorithms.utils.util import init, check
-from onpolicy.algorithms.utils.gnn import GNNBase
+from onpolicy.algorithms.utils.gnn import GNNBase, RGCNBase
 from onpolicy.algorithms.utils.mlp import MLPBase
 from onpolicy.algorithms.utils.rnn import RNNLayer
 from onpolicy.algorithms.utils.act import ACTLayer
@@ -68,25 +68,25 @@ class GR_Actor(nn.Module):
         self.hidden_size = args.hidden_size
 
         self._gain = args.gain
-        self._use_orthogonal = args.use_orthogonal
-        self._use_policy_active_masks = args.use_policy_active_masks
+        self._use_orthogonal = args.use_orthogonal # MAPPO parameter for network initialization
+        self._use_policy_active_masks = args.use_policy_active_masks # This might be the death-masking of inactive agents
         self._use_naive_recurrent_policy = args.use_naive_recurrent_policy
         self._use_recurrent_policy = args.use_recurrent_policy
-        self._recurrent_N = args.recurrent_N
-        self.split_batch = split_batch
-        self.max_batch_size = max_batch_size
-        self.tpdv = dict(dtype=torch.float32, device=device)
+        self._recurrent_N = args.recurrent_N # ASS number of steps to look backwards to
+        self.split_batch = split_batch # TODO:  what does this do?
+        self.max_batch_size = max_batch_size # ASS target batch size
+        self.tpdv = dict(dtype=torch.float32, device=device) # TODO:  what does this do?
 
-        obs_shape = get_shape_from_obs_space(obs_space)
+        obs_shape = get_shape_from_obs_space(obs_space) # ASS obs shape for additional critic input
         node_obs_shape = get_shape_from_obs_space(node_obs_space)[
             1
         ]  # returns (num_nodes, num_node_feats)
         edge_dim = get_shape_from_obs_space(edge_obs_space)[0]  # returns (edge_dim,)
 
-        self.gnn_base = GNNBase(args, node_obs_shape, edge_dim, args.actor_graph_aggr)
+        self.gnn_base = RGCNBase(args, node_obs_shape, edge_dim, args.actor_graph_aggr)
         gnn_out_dim = self.gnn_base.out_dim  # output shape from gnns
-        mlp_base_in_dim = gnn_out_dim + obs_shape[0]
-        self.base = MLPBase(args, obs_shape=None, override_obs_dim=mlp_base_in_dim)
+        mlp_base_in_dim = gnn_out_dim + obs_shape[0] # final layer of critic receives graph and raw observation
+        self.base = MLPBase(args, obs_shape=None, override_obs_dim=mlp_base_in_dim) # final layer of critic
 
         if self._use_naive_recurrent_policy or self._use_recurrent_policy:
             self.rnn = RNNLayer(
@@ -98,7 +98,7 @@ class GR_Actor(nn.Module):
 
         self.act = ACTLayer(
             action_space, self.hidden_size, self._use_orthogonal, self._gain
-        )
+        ) # TODO ACTLAYER?
 
         self.to(device)
 
@@ -159,10 +159,8 @@ class GR_Actor(nn.Module):
             actor_features = []
             for batch in batchGenerator:
                 obs_batch, node_obs_batch, adj_batch, agent_id_batch = batch
-                nbd_feats_batch = self.gnn_base(
-                    node_obs_batch, adj_batch, agent_id_batch
-                )
-                act_feats_batch = torch.cat([obs_batch, nbd_feats_batch], dim=1)
+                nbd_feats_batch = self.gnn_base(node_obs_batch, adj_batch, agent_id_batch)
+                act_feats_batch = torch.cat([obs_batch, nbd_feats_batch], dim=1 ) # TODO test without gnn as input
                 actor_feats_batch = self.base(act_feats_batch)
                 actor_features.append(actor_feats_batch)
             actor_features = torch.cat(actor_features, dim=0)
@@ -320,7 +318,7 @@ class GR_Critic(nn.Module):
         edge_dim = get_shape_from_obs_space(edge_obs_space)[0]  # (edge_dim,)
 
         # TODO modify output of GNN to be some kind of global aggregation
-        self.gnn_base = GNNBase(args, node_obs_shape, edge_dim, args.critic_graph_aggr)
+        self.gnn_base = RGCNBase(args, node_obs_shape, edge_dim, args.critic_graph_aggr) # edge_dim =1 node_obs_shape = 7,
         gnn_out_dim = self.gnn_base.out_dim
         # if node aggregation, then concatenate aggregated node features for all agents
         # otherwise, the aggregation is done for the whole graph
@@ -399,6 +397,8 @@ class GR_Critic(nn.Module):
             nbd_features = self.gnn_base(
                 node_obs, adj, agent_id
             )  # CHECK from where are these agent_ids coming
+            # adj: tensor (384,9,9)
+            # nbd_features (384,16)
             if self.args.use_cent_obs:
                 critic_features = torch.cat(
                     [cent_obs, nbd_features], dim=1
