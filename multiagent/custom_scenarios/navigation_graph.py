@@ -568,10 +568,6 @@ class Scenario(BaseScenario):
                     if (np.linalg.norm(dists[i,j,:]) < self.min_dist_thresh ) and (np.linalg.norm(dists[i,j,:]) !=0) :
                         spatial_tensors[4][i, j] = 1
 
-        elif world.graph_feat_type == "relative":
-            for i, entity in enumerate(world.entities):
-                node_obs_i = self._get_entity_feat_relative(agent, entity, world)
-                node_obs.append(node_obs_i)
 
         node_obs = np.array(node_obs)
         spatial_tensors = np.stack(spatial_tensors, axis=-1)
@@ -722,7 +718,7 @@ class Scenario(BaseScenario):
         elif "landmark" in entity.name:
             # goal_pos = pos
             entity_type = entity_mapping["landmark"]
-            if world.get_entity("landmark", agent.id)==entity:
+            if world.get_entity("landmark", agent.id) == entity:
                 target = 1
         elif "obstacle" in entity.name:
             # goal_pos = pos

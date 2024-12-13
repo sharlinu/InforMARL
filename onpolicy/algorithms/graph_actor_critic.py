@@ -66,7 +66,7 @@ class GR_Actor(nn.Module):
         super(GR_Actor, self).__init__()
         self.args = args
         self.hidden_size = args.hidden_size
-
+        self.use_gnn = False
         self._gain = args.gain
         self._use_orthogonal = args.use_orthogonal # MAPPO parameter for network initialization
         self._use_policy_active_masks = args.use_policy_active_masks # This might be the death-masking of inactive agents
@@ -83,10 +83,14 @@ class GR_Actor(nn.Module):
         ]  # returns (num_nodes, num_node_feats)
         edge_dim = get_shape_from_obs_space(edge_obs_space)[0]  # returns (edge_dim,)
 
-        self.gnn_base = RGCNBase(args, node_obs_shape, edge_dim, args.actor_graph_aggr)
-        gnn_out_dim = self.gnn_base.out_dim  # output shape from gnns
-        mlp_base_in_dim = gnn_out_dim + obs_shape[0] # final layer of critic receives graph and raw observation
-        self.base = MLPBase(args, obs_shape=None, override_obs_dim=mlp_base_in_dim) # final layer of critic
+
+        if self.use_gnn:
+            self.gnn_base = RGCNBase(args, node_obs_shape, edge_dim, args.actor_graph_aggr)
+            gnn_out_dim = self.gnn_base.out_dim  # output shape from gnns
+            mlp_base_in_dim = gnn_out_dim + obs_shape[0] # final layer of critic receives graph and raw observation
+            self.base = MLPBase(args, obs_shape=None, override_obs_dim=mlp_base_in_dim) # final layer of critic
+        else:
+            self.base = MLPBase(args, obs_shape=None, override_obs_dim=obs_shape[0])  # final layer of critic
 
         if self._use_naive_recurrent_policy or self._use_recurrent_policy:
             self.rnn = RNNLayer(
@@ -159,15 +163,21 @@ class GR_Actor(nn.Module):
             actor_features = []
             for batch in batchGenerator:
                 obs_batch, node_obs_batch, adj_batch, agent_id_batch = batch
-                nbd_feats_batch = self.gnn_base(node_obs_batch, adj_batch, agent_id_batch)
-                act_feats_batch = torch.cat([obs_batch, nbd_feats_batch], dim=1 ) # TODO test without gnn as input
-                actor_feats_batch = self.base(act_feats_batch)
+                if self.use_gnn:
+                    nbd_feats_batch = self.gnn_base(node_obs_batch, adj_batch, agent_id_batch)
+                    act_feats_batch = torch.cat([obs_batch, nbd_feats_batch], dim=1)
+                    actor_feats_batch = self.base(act_feats_batch)
+                else:
+                    actor_feats_batch = self.base(obs_batch)
                 actor_features.append(actor_feats_batch)
             actor_features = torch.cat(actor_features, dim=0)
         else:
-            nbd_features = self.gnn_base(node_obs, adj, agent_id)
-            actor_features = torch.cat([obs, nbd_features], dim=1)
-            actor_features = self.base(actor_features)
+            if self.use_gnn:
+                nbd_features = self.gnn_base(node_obs, adj, agent_id)
+                actor_features = torch.cat([obs, nbd_features], dim=1)
+                actor_features = self.base(actor_features)
+            else:
+                actor_features = self.base(obs)
 
         if self._use_naive_recurrent_policy or self._use_recurrent_policy:
             actor_features, rnn_states = self.rnn(actor_features, rnn_states, masks)
@@ -248,9 +258,12 @@ class GR_Actor(nn.Module):
                 actor_features.append(actor_feats_batch)
             actor_features = torch.cat(actor_features, dim=0)
         else:
-            nbd_features = self.gnn_base(node_obs, adj, agent_id)
-            actor_features = torch.cat([obs, nbd_features], dim=1)
-            actor_features = self.base(actor_features)
+            if self.use_gnn:
+                nbd_features = self.gnn_base(node_obs, adj, agent_id)
+                actor_features = torch.cat([obs, nbd_features], dim=1)
+                actor_features = self.base(actor_features)
+            else:
+                actor_features = self.base(obs)
 
         if self._use_naive_recurrent_policy or self._use_recurrent_policy:
             actor_features, rnn_states = self.rnn(actor_features, rnn_states, masks)

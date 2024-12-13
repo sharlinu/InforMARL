@@ -519,13 +519,8 @@ class RelationalConvNet(nn.Module):
         #     bias=True,
         #     root_weight=True,
         # )
+        print(f'Initialising rgcn with {hidden_size} dimensions')
         self.gnn1 = RGCNConv(hidden_size, hidden_size, 5) #3rd argument is number of edge types # FIXME: this is manually coded
-        # self.gnn2 = RGCNConv(hidden_size, hidden_size, 5)  # 3rd argument is number of edge types
-        # self.gnn2 = nn.ModuleList()
-        # for i in range(layer_N):
-        #     self.gnn2.append(
-        #         self.addTCLayer(self.getInChannels(hidden_size), hidden_size)
-        #     )
 
 
 
@@ -547,9 +542,6 @@ class RelationalConvNet(nn.Module):
         datalist = []
         for i in range(batch_size):
             edge_index, edge_attr = self.processAdj(adj[i])
-            # if edge_attr is only one dimensional
-            # if len(edge_attr.shape) == 1:
-            #     edge_attr = edge_attr.unsqueeze(1)
             datalist.append(
                 Data(x=node_obs[i], edge_index=edge_index, edge_attr=edge_attr)
             )
@@ -631,12 +623,14 @@ class RelationalConvNet(nn.Module):
         batch_size, num_nodes, num_feats = x.shape
         idx = idx.long()
         for i in range(idx.shape[1]):
-            idx_tmp = idx[:, i].unsqueeze(-1)  # (batch_size, 1)
+            idx_tmp = idx[:, i].unsqueeze(-1)  # (batch_size, 1) # index is [0,1,2,..., n_agents,0, 1,2 ...]
             assert idx_tmp.shape == (batch_size, 1)
-            idx_tmp = idx_tmp.repeat(1, num_feats)  # (batch_size, out_channels)
-            idx_tmp = idx_tmp.unsqueeze(1)  # (batch_size, 1, out_channels)
+            idx_tmp = idx_tmp.repeat(1, num_feats)  # (batch_size, out_channels) # repeats the index for all the features
+            idx_tmp = idx_tmp.unsqueeze(1)  # (batch_size, 1, out_channels) adds middle dimension
+            # idx_tmp are the indices of elements to gather and are
             gathered_node = x.gather(1, idx_tmp).squeeze(
-                1
+                1 # only get agent node, this only works because agents are the first n nodes.
+                # and neighborhood already included via gnn propagation
             )  # (batch_size, out_channels)
             out.append(gathered_node)
         out = torch.cat(out, dim=1)  # (batch_size, out_channels*k)
