@@ -720,7 +720,9 @@ class GraphReplayBuffer(object):
             .reshape(-1, *self.node_obs.shape[3:])
         )
         # adj = self.adj[:-1].transpose(1, 2, 0, 3, 4).reshape(-1, *self.adj.shape[3:])
+
         adj = self.adj[:-1].transpose(1, 2, 0, 3, 4, 5).reshape(-1, *self.adj.shape[3:])
+
         agent_id = _cast(self.agent_id[:-1])
         share_agent_id = _cast(self.share_agent_id[:-1])
 

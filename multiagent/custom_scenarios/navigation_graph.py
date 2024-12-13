@@ -12,7 +12,6 @@ from scipy import sparse
 import os, sys
 import torch
 from torch_geometric.data import Data as GeometricData
-
 sys.path.append(os.path.abspath(os.getcwd()))
 
 from multiagent.core import World, Agent, Landmark, Entity

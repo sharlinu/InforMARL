@@ -84,7 +84,7 @@ def GraphMPEEnv(args):
         info_callback=scenario.info_callback,
         scenario_name=args.scenario_name,
     )
-
+    print('using the right graph environment')
     return env
 
 

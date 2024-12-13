@@ -66,7 +66,7 @@ class GR_Actor(nn.Module):
         super(GR_Actor, self).__init__()
         self.args = args
         self.hidden_size = args.hidden_size
-        self.use_gnn = False
+        self.use_gnn = True
         self._gain = args.gain
         self._use_orthogonal = args.use_orthogonal # MAPPO parameter for network initialization
         self._use_policy_active_masks = args.use_policy_active_masks # This might be the death-masking of inactive agents

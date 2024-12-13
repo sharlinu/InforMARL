@@ -15,7 +15,7 @@ sys.path.append(os.path.abspath(os.getcwd()))
 from utils.utils import print_args, print_box, connected_to_internet
 from onpolicy.config import get_config
 from multiagent.MPE_env import MPEEnv, GraphMPEEnv
-from onpolicy.envs.env_wrappers import (
+from multiagent.env_wrappers import (
     SubprocVecEnv,
     DummyVecEnv,
     GraphSubprocVecEnv,
