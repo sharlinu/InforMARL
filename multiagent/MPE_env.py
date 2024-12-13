@@ -75,14 +75,16 @@ def GraphMPEEnv(args):
         world=world,
         reset_callback=scenario.reset_world,
         reward_callback=scenario.reward,
-        observation_callback=scenario.observation,
-        graph_observation_callback=scenario.graph_observation,
+        observation_callback=scenario.global_observation,
+        # graph_observation_callback=scenario.graph_observation, # FIXME: changed manually
+        # graph_observation_callback=scenario.count_graph_observation,
+        graph_observation_callback=scenario.rel_graph_observation,
         update_graph=scenario.update_graph,
         id_callback=scenario.get_id,
         info_callback=scenario.info_callback,
         scenario_name=args.scenario_name,
     )
-
+    print('using the right graph environment')
     return env
 
 

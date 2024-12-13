@@ -175,11 +175,11 @@ def main(args):
         print("_" * 50)
         run = wandb.init(
             config=all_args,
+            project = 'enemy',
             # project=all_args.project_name,
-            project='enemy',
             # project=all_args.env_name,
-            # entity=all_args.user_name,
-            # notes=socket.gethostname(),
+            #entity=all_args.user_name,
+            #notes=socket.gethostname(),
             name=str(all_args.algorithm_name)
             + "_"
             + str(all_args.experiment_name)
@@ -261,14 +261,14 @@ def main(args):
 
     # choose algo
     if all_args.algorithm_name in ["rmatd3", "rmaddpg", "rmasac", "qmix", "vdn"]:
-        from baselines.offpolicy.runner.rnn.mpe_runner import MPERunner as Runner
+        from baseline_algs.offpolicy.runner.rnn.mpe_runner import MPERunner as Runner
 
         assert (
             all_args.n_rollout_threads == 1
         ), "only support 1 env in recurrent version."
         eval_env = env
     elif all_args.algorithm_name in ["matd3", "maddpg", "masac", "mqmix", "mvdn"]:
-        from baselines.offpolicy.runner.mlp.mpe_runner import MPERunner as Runner
+        from baseline_algs.offpolicy.runner.mlp.mpe_runner import MPERunner as Runner
 
         eval_env = make_eval_env(all_args)
     else:

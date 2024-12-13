@@ -1,7 +1,7 @@
 import time
 import numpy as np
 import argparse
-from typing import Tuple
+from typing import Tuple, Union, Any
 import torch
 from torch import Tensor
 import torch.nn as nn
@@ -33,6 +33,7 @@ class GR_MAPPO:
         self.tpdv = dict(dtype=torch.float32, device=device)
         self.policy = policy
 
+        # PPO parameters
         self.clip_param = args.clip_param
         self.ppo_epoch = args.ppo_epoch
         self.num_mini_batch = args.num_mini_batch
@@ -120,7 +121,7 @@ class GR_MAPPO:
 
     def ppo_update(
         self, sample: Tuple, update_actor: bool = True
-    ) -> Tuple[Tensor, Tensor, Tensor, Tensor, Tensor, Tensor]:
+    ) -> tuple[Tensor, Union[Tensor, Any], Any, Any, Union[Tensor, Any], Tensor, float, float]:
         """
         Update actor and critic networks.
         sample: (Tuple)

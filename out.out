@@ -1,0 +1,466 @@
+__________________________________________________
+Overriding num_mini_batch to 75
+Batch size to be: 120
+__________________________________________________
+__________________________________________________
+Choose to use gpu...
+__________________________________________________
+__________________________________________________
+||                  Arguments                   ||
+__________________________________________________
+|| algorithm_name: rmappo                       ||
+|| project_name: informarl                      ||
+|| experiment_name: informarl                   ||
+|| seed: 0                                      ||
+|| cuda: True                                   ||
+|| cuda_deterministic: True                     ||
+|| n_training_threads: 1                        ||
+|| n_rollout_threads: 128                       ||
+|| n_eval_rollout_threads: 1                    ||
+|| n_render_rollout_threads: 1                  ||
+|| num_env_steps: 3000000                       ||
+|| user_name: marl                              ||
+|| use_wandb: True                              ||
+|| env_name: GraphMPE                           ||
+|| use_obs_instead_of_state: False              ||
+|| world_size: 2                                ||
+|| num_scripted_agents: 0                       ||
+|| obs_type: global                             ||
+|| max_edge_dist: 1                             ||
+|| num_nbd_entities: 3                          ||
+|| use_comm: False                              ||
+|| episode_length: 25                           ||
+|| share_policy: True                           ||
+|| use_centralized_V: True                      ||
+|| stacked_frames: 1                            ||
+|| use_stacked_frames: False                    ||
+|| hidden_size: 64                              ||
+|| layer_N: 1                                   ||
+|| use_ReLU: False                              ||
+|| use_popart: True                             ||
+|| use_valuenorm: False                         ||
+|| use_feature_normalization: True              ||
+|| use_orthogonal: True                         ||
+|| gain: 0.01                                   ||
+|| split_batch: False                           ||
+|| max_batch_size: 32                           ||
+|| use_naive_recurrent_policy: False            ||
+|| use_recurrent_policy: True                   ||
+|| recurrent_N: 1                               ||
+|| data_chunk_length: 10                        ||
+|| lr: 0.0007                                   ||
+|| critic_lr: 0.0007                            ||
+|| opti_eps: 1e-05                              ||
+|| weight_decay: 0                              ||
+|| ppo_epoch: 10                                ||
+|| use_clipped_value_loss: True                 ||
+|| clip_param: 0.2                              ||
+|| num_mini_batch: 75                           ||
+|| entropy_coef: 0.01                           ||
+|| value_loss_coef: 1                           ||
+|| use_max_grad_norm: True                      ||
+|| max_grad_norm: 10.0                          ||
+|| use_gae: True                                ||
+|| gamma: 0.99                                  ||
+|| gae_lambda: 0.95                             ||
+|| use_proper_time_limits: False                ||
+|| use_huber_loss: True                         ||
+|| use_value_active_masks: True                 ||
+|| use_policy_active_masks: True                ||
+|| huber_delta: 10.0                            ||
+|| use_linear_lr_decay: False                   ||
+|| save_interval: 1                             ||
+|| log_interval: 5                              ||
+|| use_eval: False                              ||
+|| eval_interval: 25                            ||
+|| eval_episodes: 32                            ||
+|| save_gifs: False                             ||
+|| use_render: False                            ||
+|| render_episodes: 5                           ||
+|| ifi: 0.1                                     ||
+|| render_eval: False                           ||
+|| model_dir: None                              ||
+|| verbose: True                                ||
+|| scenario_name: navigation_graph              ||
+|| num_landmarks: 3                             ||
+|| num_agents: 3                                ||
+|| num_obstacles: 3                             ||
+|| collaborative: True                          ||
+|| max_speed: 2                                 ||
+|| collision_rew: 5.0                           ||
+|| goal_rew: 5                                  ||
+|| min_dist_thresh: 0.05                        ||
+|| use_dones: False                             ||
+|| num_embeddings: 3                            ||
+|| embedding_size: 2                            ||
+|| embed_hidden_size: 16                        ||
+|| embed_layer_N: 1                             ||
+|| embed_use_ReLU: True                         ||
+|| embed_add_self_loop: False                   ||
+|| gnn_hidden_size: 16                          ||
+|| gnn_num_heads: 3                             ||
+|| gnn_concat_heads: False                      ||
+|| gnn_layer_N: 2                               ||
+|| gnn_use_ReLU: True                           ||
+|| graph_feat_type: relative                    ||
+|| actor_graph_aggr: node                       ||
+|| critic_graph_aggr: global                    ||
+|| global_aggr_type: mean                       ||
+|| use_cent_obs: False                          ||
+|| auto_mini_batch_size: True                   ||
+|| target_mini_batch_size: 128                  ||
+__________________________________________________
+__________________________________________________
+Creating wandboard...
+__________________________________________________
+wandb: Currently logged in as: sharlinu (golde). Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.16.6
+wandb: Run data is saved locally in /home/utke_s@WMGDS.WMG.WARWICK.AC.UK/github/InforMARL/onpolicy/results/GraphMPE/navigation_graph/rmappo/informarl/wandb/run-20240420_223016-vyadsptj
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run rmappo_informarl_seed0
+wandb: ⭐️ View project at https://wandb.ai/golde/enemy
+wandb: 🚀 View run at https://wandb.ai/golde/enemy/runs/vyadsptj
+Overriding Observation dimension
+Overriding Observation dimension
+________________________________________________________________________________
+Actor Network
+________________________________________________________________________________
+________________________________________________________________________________
+GR_Actor(
+  (gnn_base): GNNBase(
+    (gnn): TransformerConvNet(
+      (active_func): ReLU()
+      (embed_layer): EmbedConv()
+      (gnn1): TransformerConv(16, 16, heads=3)
+      (gnn2): ModuleList(
+        (0-1): 2 x TransformerConv(16, 16, heads=3)
+      )
+    )
+  )
+  (base): MLPBase(
+    (feature_norm): LayerNorm((22,), eps=1e-05, elementwise_affine=True)
+    (mlp): MLPLayer(
+      (fc1): Sequential(
+        (0): Linear(in_features=22, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc_h): Sequential(
+        (0): Linear(in_features=64, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc2): ModuleList(
+        (0): Sequential(
+          (0): Linear(in_features=64, out_features=64, bias=True)
+          (1): Tanh()
+          (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (rnn): RNNLayer(
+    (rnn): GRU(64, 64)
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (act): ACTLayer(
+    (action_out): Categorical(
+      (linear): Linear(in_features=64, out_features=5, bias=True)
+    )
+  )
+)
+________________________________________________________________________________
+________________________________________________________________________________
+Critic Network
+________________________________________________________________________________
+________________________________________________________________________________
+GR_Critic(
+  (gnn_base): GNNBase(
+    (gnn): TransformerConvNet(
+      (active_func): ReLU()
+      (embed_layer): EmbedConv()
+      (gnn1): TransformerConv(16, 16, heads=3)
+      (gnn2): ModuleList(
+        (0-1): 2 x TransformerConv(16, 16, heads=3)
+      )
+    )
+  )
+  (base): MLPBase(
+    (feature_norm): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+    (mlp): MLPLayer(
+      (fc1): Sequential(
+        (0): Linear(in_features=16, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc_h): Sequential(
+        (0): Linear(in_features=64, out_features=64, bias=True)
+        (1): Tanh()
+        (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+      )
+      (fc2): ModuleList(
+        (0): Sequential(
+          (0): Linear(in_features=64, out_features=64, bias=True)
+          (1): Tanh()
+          (2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (rnn): RNNLayer(
+    (rnn): GRU(64, 64)
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (v_out): PopArt()
+)
+________________________________________________________________________________
+Average episode rewards is -83.452 	Total timesteps: 3200 	 Percentage complete 0.107
+Average episode rewards is -77.607 	Total timesteps: 19200 	 Percentage complete 0.640
+Average episode rewards is -70.210 	Total timesteps: 35200 	 Percentage complete 1.173
+Average episode rewards is -58.501 	Total timesteps: 51200 	 Percentage complete 1.707
+Average episode rewards is -49.885 	Total timesteps: 67200 	 Percentage complete 2.240
+Average episode rewards is -43.762 	Total timesteps: 83200 	 Percentage complete 2.773
+Average episode rewards is -39.623 	Total timesteps: 99200 	 Percentage complete 3.307
+Average episode rewards is -41.899 	Total timesteps: 115200 	 Percentage complete 3.840
+Average episode rewards is -36.141 	Total timesteps: 131200 	 Percentage complete 4.373
+Average episode rewards is -30.685 	Total timesteps: 147200 	 Percentage complete 4.907
+Average episode rewards is -27.020 	Total timesteps: 163200 	 Percentage complete 5.440
+Average episode rewards is -15.557 	Total timesteps: 179200 	 Percentage complete 5.973
+Average episode rewards is -4.317 	Total timesteps: 195200 	 Percentage complete 6.507
+Average episode rewards is 9.740 	Total timesteps: 211200 	 Percentage complete 7.040
+Average episode rewards is 24.958 	Total timesteps: 227200 	 Percentage complete 7.573
+Average episode rewards is 21.245 	Total timesteps: 243200 	 Percentage complete 8.107
+Average episode rewards is 36.181 	Total timesteps: 259200 	 Percentage complete 8.640
+Average episode rewards is 49.152 	Total timesteps: 275200 	 Percentage complete 9.173
+Average episode rewards is 62.046 	Total timesteps: 291200 	 Percentage complete 9.707
+Average episode rewards is 72.441 	Total timesteps: 307200 	 Percentage complete 10.240
+Average episode rewards is 76.017 	Total timesteps: 323200 	 Percentage complete 10.773
+Average episode rewards is 80.028 	Total timesteps: 339200 	 Percentage complete 11.307
+Average episode rewards is 90.432 	Total timesteps: 355200 	 Percentage complete 11.840
+Average episode rewards is 94.411 	Total timesteps: 371200 	 Percentage complete 12.373
+Average episode rewards is 106.916 	Total timesteps: 387200 	 Percentage complete 12.907
+Average episode rewards is 111.455 	Total timesteps: 403200 	 Percentage complete 13.440
+Average episode rewards is 114.943 	Total timesteps: 419200 	 Percentage complete 13.973
+Average episode rewards is 126.929 	Total timesteps: 435200 	 Percentage complete 14.507
+Average episode rewards is 113.253 	Total timesteps: 451200 	 Percentage complete 15.040
+Average episode rewards is 127.549 	Total timesteps: 467200 	 Percentage complete 15.573
+Average episode rewards is 122.994 	Total timesteps: 483200 	 Percentage complete 16.107
+Average episode rewards is 119.800 	Total timesteps: 499200 	 Percentage complete 16.640
+Average episode rewards is 125.907 	Total timesteps: 515200 	 Percentage complete 17.173
+Average episode rewards is 125.723 	Total timesteps: 531200 	 Percentage complete 17.707
+Average episode rewards is 110.355 	Total timesteps: 547200 	 Percentage complete 18.240
+Average episode rewards is 113.074 	Total timesteps: 563200 	 Percentage complete 18.773
+Average episode rewards is 131.690 	Total timesteps: 579200 	 Percentage complete 19.307
+Average episode rewards is 125.162 	Total timesteps: 595200 	 Percentage complete 19.840
+Average episode rewards is 111.558 	Total timesteps: 611200 	 Percentage complete 20.373
+Average episode rewards is 114.540 	Total timesteps: 627200 	 Percentage complete 20.907
+Average episode rewards is 119.367 	Total timesteps: 643200 	 Percentage complete 21.440
+Average episode rewards is 107.048 	Total timesteps: 659200 	 Percentage complete 21.973
+Average episode rewards is 95.869 	Total timesteps: 675200 	 Percentage complete 22.507
+Average episode rewards is 102.615 	Total timesteps: 691200 	 Percentage complete 23.040
+Average episode rewards is 98.942 	Total timesteps: 707200 	 Percentage complete 23.573
+Average episode rewards is 122.102 	Total timesteps: 723200 	 Percentage complete 24.107
+Average episode rewards is 110.026 	Total timesteps: 739200 	 Percentage complete 24.640
+Average episode rewards is 84.309 	Total timesteps: 755200 	 Percentage complete 25.173
+Average episode rewards is 115.593 	Total timesteps: 771200 	 Percentage complete 25.707
+Average episode rewards is 98.910 	Total timesteps: 787200 	 Percentage complete 26.240
+Average episode rewards is 101.140 	Total timesteps: 803200 	 Percentage complete 26.773
+Average episode rewards is 112.617 	Total timesteps: 819200 	 Percentage complete 27.307
+Average episode rewards is 113.704 	Total timesteps: 835200 	 Percentage complete 27.840
+Average episode rewards is 121.515 	Total timesteps: 851200 	 Percentage complete 28.373
+Average episode rewards is 134.615 	Total timesteps: 867200 	 Percentage complete 28.907
+Average episode rewards is 123.310 	Total timesteps: 883200 	 Percentage complete 29.440
+Average episode rewards is 115.865 	Total timesteps: 899200 	 Percentage complete 29.973
+Average episode rewards is 121.319 	Total timesteps: 915200 	 Percentage complete 30.507
+Average episode rewards is 110.506 	Total timesteps: 931200 	 Percentage complete 31.040
+Average episode rewards is 119.046 	Total timesteps: 947200 	 Percentage complete 31.573
+Average episode rewards is 100.118 	Total timesteps: 963200 	 Percentage complete 32.107
+Average episode rewards is 120.537 	Total timesteps: 979200 	 Percentage complete 32.640
+Average episode rewards is 108.506 	Total timesteps: 995200 	 Percentage complete 33.173
+Average episode rewards is 107.446 	Total timesteps: 1011200 	 Percentage complete 33.707
+Average episode rewards is 107.961 	Total timesteps: 1027200 	 Percentage complete 34.240
+Average episode rewards is 123.261 	Total timesteps: 1043200 	 Percentage complete 34.773
+Average episode rewards is 98.924 	Total timesteps: 1059200 	 Percentage complete 35.307
+Average episode rewards is 108.996 	Total timesteps: 1075200 	 Percentage complete 35.840
+Average episode rewards is 98.888 	Total timesteps: 1091200 	 Percentage complete 36.373
+Average episode rewards is 122.703 	Total timesteps: 1107200 	 Percentage complete 36.907
+Average episode rewards is 125.563 	Total timesteps: 1123200 	 Percentage complete 37.440
+Average episode rewards is 110.533 	Total timesteps: 1139200 	 Percentage complete 37.973
+Average episode rewards is 117.712 	Total timesteps: 1155200 	 Percentage complete 38.507
+Average episode rewards is 126.003 	Total timesteps: 1171200 	 Percentage complete 39.040
+Average episode rewards is 139.429 	Total timesteps: 1187200 	 Percentage complete 39.573
+Average episode rewards is 135.026 	Total timesteps: 1203200 	 Percentage complete 40.107
+Average episode rewards is 138.145 	Total timesteps: 1219200 	 Percentage complete 40.640
+Average episode rewards is 148.475 	Total timesteps: 1235200 	 Percentage complete 41.173
+Average episode rewards is 140.870 	Total timesteps: 1251200 	 Percentage complete 41.707
+Average episode rewards is 114.110 	Total timesteps: 1267200 	 Percentage complete 42.240
+Average episode rewards is 127.265 	Total timesteps: 1283200 	 Percentage complete 42.773
+Average episode rewards is 129.387 	Total timesteps: 1299200 	 Percentage complete 43.307
+Average episode rewards is 138.443 	Total timesteps: 1315200 	 Percentage complete 43.840
+Average episode rewards is 122.515 	Total timesteps: 1331200 	 Percentage complete 44.373
+Average episode rewards is 131.299 	Total timesteps: 1347200 	 Percentage complete 44.907
+Average episode rewards is 133.490 	Total timesteps: 1363200 	 Percentage complete 45.440
+Average episode rewards is 134.357 	Total timesteps: 1379200 	 Percentage complete 45.973
+Average episode rewards is 135.236 	Total timesteps: 1395200 	 Percentage complete 46.507
+wandb: Network error (ReadTimeout), entering retry loop.
+Average episode rewards is 116.404 	Total timesteps: 1411200 	 Percentage complete 47.040
+Average episode rewards is 118.066 	Total timesteps: 1427200 	 Percentage complete 47.573
+Average episode rewards is 130.711 	Total timesteps: 1443200 	 Percentage complete 48.107
+Average episode rewards is 135.036 	Total timesteps: 1459200 	 Percentage complete 48.640
+Average episode rewards is 139.999 	Total timesteps: 1475200 	 Percentage complete 49.173
+Average episode rewards is 141.590 	Total timesteps: 1491200 	 Percentage complete 49.707
+Average episode rewards is 142.011 	Total timesteps: 1507200 	 Percentage complete 50.240
+Average episode rewards is 141.832 	Total timesteps: 1523200 	 Percentage complete 50.773
+Average episode rewards is 124.855 	Total timesteps: 1539200 	 Percentage complete 51.307
+Average episode rewards is 143.224 	Total timesteps: 1555200 	 Percentage complete 51.840
+Average episode rewards is 140.876 	Total timesteps: 1571200 	 Percentage complete 52.373
+Average episode rewards is 151.145 	Total timesteps: 1587200 	 Percentage complete 52.907
+Average episode rewards is 151.681 	Total timesteps: 1603200 	 Percentage complete 53.440
+Average episode rewards is 150.276 	Total timesteps: 1619200 	 Percentage complete 53.973
+Average episode rewards is 157.484 	Total timesteps: 1635200 	 Percentage complete 54.507
+Average episode rewards is 152.705 	Total timesteps: 1651200 	 Percentage complete 55.040
+Average episode rewards is 148.360 	Total timesteps: 1667200 	 Percentage complete 55.573
+Average episode rewards is 156.075 	Total timesteps: 1683200 	 Percentage complete 56.107
+Average episode rewards is 141.927 	Total timesteps: 1699200 	 Percentage complete 56.640
+Average episode rewards is 153.342 	Total timesteps: 1715200 	 Percentage complete 57.173
+Average episode rewards is 152.624 	Total timesteps: 1731200 	 Percentage complete 57.707
+Average episode rewards is 150.613 	Total timesteps: 1747200 	 Percentage complete 58.240
+Average episode rewards is 158.943 	Total timesteps: 1763200 	 Percentage complete 58.773
+Average episode rewards is 163.575 	Total timesteps: 1779200 	 Percentage complete 59.307
+Average episode rewards is 156.058 	Total timesteps: 1795200 	 Percentage complete 59.840
+Average episode rewards is 138.386 	Total timesteps: 1811200 	 Percentage complete 60.373
+Average episode rewards is 134.498 	Total timesteps: 1827200 	 Percentage complete 60.907
+Average episode rewards is 142.458 	Total timesteps: 1843200 	 Percentage complete 61.440
+Average episode rewards is 154.689 	Total timesteps: 1859200 	 Percentage complete 61.973
+Average episode rewards is 147.103 	Total timesteps: 1875200 	 Percentage complete 62.507
+Average episode rewards is 142.864 	Total timesteps: 1891200 	 Percentage complete 63.040
+Average episode rewards is 152.155 	Total timesteps: 1907200 	 Percentage complete 63.573
+Average episode rewards is 164.416 	Total timesteps: 1923200 	 Percentage complete 64.107
+Average episode rewards is 142.795 	Total timesteps: 1939200 	 Percentage complete 64.640
+Average episode rewards is 143.227 	Total timesteps: 1955200 	 Percentage complete 65.173
+Average episode rewards is 147.061 	Total timesteps: 1971200 	 Percentage complete 65.707
+Average episode rewards is 153.182 	Total timesteps: 1987200 	 Percentage complete 66.240
+Average episode rewards is 155.771 	Total timesteps: 2003200 	 Percentage complete 66.773
+Average episode rewards is 162.592 	Total timesteps: 2019200 	 Percentage complete 67.307
+Average episode rewards is 146.263 	Total timesteps: 2035200 	 Percentage complete 67.840
+Average episode rewards is 162.149 	Total timesteps: 2051200 	 Percentage complete 68.373
+Average episode rewards is 166.000 	Total timesteps: 2067200 	 Percentage complete 68.907
+Average episode rewards is 163.008 	Total timesteps: 2083200 	 Percentage complete 69.440
+Average episode rewards is 155.457 	Total timesteps: 2099200 	 Percentage complete 69.973
+Average episode rewards is 168.993 	Total timesteps: 2115200 	 Percentage complete 70.507
+Average episode rewards is 161.973 	Total timesteps: 2131200 	 Percentage complete 71.040
+Average episode rewards is 154.498 	Total timesteps: 2147200 	 Percentage complete 71.573
+Average episode rewards is 157.582 	Total timesteps: 2163200 	 Percentage complete 72.107
+Average episode rewards is 157.251 	Total timesteps: 2179200 	 Percentage complete 72.640
+Average episode rewards is 152.241 	Total timesteps: 2195200 	 Percentage complete 73.173
+Average episode rewards is 151.794 	Total timesteps: 2211200 	 Percentage complete 73.707
+Average episode rewards is 155.110 	Total timesteps: 2227200 	 Percentage complete 74.240
+Average episode rewards is 145.159 	Total timesteps: 2243200 	 Percentage complete 74.773
+Average episode rewards is 155.303 	Total timesteps: 2259200 	 Percentage complete 75.307
+Average episode rewards is 153.872 	Total timesteps: 2275200 	 Percentage complete 75.840
+Average episode rewards is 165.874 	Total timesteps: 2291200 	 Percentage complete 76.373
+Average episode rewards is 174.654 	Total timesteps: 2307200 	 Percentage complete 76.907
+Average episode rewards is 153.348 	Total timesteps: 2323200 	 Percentage complete 77.440
+Average episode rewards is 160.868 	Total timesteps: 2339200 	 Percentage complete 77.973
+Average episode rewards is 161.138 	Total timesteps: 2355200 	 Percentage complete 78.507
+Average episode rewards is 156.853 	Total timesteps: 2371200 	 Percentage complete 79.040
+Average episode rewards is 157.123 	Total timesteps: 2387200 	 Percentage complete 79.573
+Average episode rewards is 160.712 	Total timesteps: 2403200 	 Percentage complete 80.107
+Average episode rewards is 153.488 	Total timesteps: 2419200 	 Percentage complete 80.640
+Average episode rewards is 153.962 	Total timesteps: 2435200 	 Percentage complete 81.173
+Average episode rewards is 147.533 	Total timesteps: 2451200 	 Percentage complete 81.707
+Average episode rewards is 151.792 	Total timesteps: 2467200 	 Percentage complete 82.240
+Average episode rewards is 149.471 	Total timesteps: 2483200 	 Percentage complete 82.773
+Average episode rewards is 152.912 	Total timesteps: 2499200 	 Percentage complete 83.307
+Average episode rewards is 146.696 	Total timesteps: 2515200 	 Percentage complete 83.840
+Average episode rewards is 154.800 	Total timesteps: 2531200 	 Percentage complete 84.373
+Average episode rewards is 149.041 	Total timesteps: 2547200 	 Percentage complete 84.907
+Average episode rewards is 169.655 	Total timesteps: 2563200 	 Percentage complete 85.440
+Average episode rewards is 149.492 	Total timesteps: 2579200 	 Percentage complete 85.973
+Average episode rewards is 143.824 	Total timesteps: 2595200 	 Percentage complete 86.507
+Average episode rewards is 163.261 	Total timesteps: 2611200 	 Percentage complete 87.040
+Average episode rewards is 168.104 	Total timesteps: 2627200 	 Percentage complete 87.573
+Average episode rewards is 165.005 	Total timesteps: 2643200 	 Percentage complete 88.107
+Average episode rewards is 167.458 	Total timesteps: 2659200 	 Percentage complete 88.640
+Average episode rewards is 172.678 	Total timesteps: 2675200 	 Percentage complete 89.173
+Average episode rewards is 180.833 	Total timesteps: 2691200 	 Percentage complete 89.707
+Average episode rewards is 172.024 	Total timesteps: 2707200 	 Percentage complete 90.240
+Average episode rewards is 175.716 	Total timesteps: 2723200 	 Percentage complete 90.773
+Average episode rewards is 174.052 	Total timesteps: 2739200 	 Percentage complete 91.307
+Average episode rewards is 178.647 	Total timesteps: 2755200 	 Percentage complete 91.840
+Average episode rewards is 175.244 	Total timesteps: 2771200 	 Percentage complete 92.373
+Average episode rewards is 181.739 	Total timesteps: 2787200 	 Percentage complete 92.907
+Average episode rewards is 183.737 	Total timesteps: 2803200 	 Percentage complete 93.440
+Average episode rewards is 165.012 	Total timesteps: 2819200 	 Percentage complete 93.973
+Average episode rewards is 171.796 	Total timesteps: 2835200 	 Percentage complete 94.507
+Average episode rewards is 175.900 	Total timesteps: 2851200 	 Percentage complete 95.040
+Average episode rewards is 167.158 	Total timesteps: 2867200 	 Percentage complete 95.573
+Average episode rewards is 169.269 	Total timesteps: 2883200 	 Percentage complete 96.107
+Average episode rewards is 167.377 	Total timesteps: 2899200 	 Percentage complete 96.640
+Average episode rewards is 173.478 	Total timesteps: 2915200 	 Percentage complete 97.173
+Average episode rewards is 167.365 	Total timesteps: 2931200 	 Percentage complete 97.707
+Average episode rewards is 174.932 	Total timesteps: 2947200 	 Percentage complete 98.240
+Average episode rewards is 182.007 	Total timesteps: 2963200 	 Percentage complete 98.773
+Average episode rewards is 181.653 	Total timesteps: 2979200 	 Percentage complete 99.307
+Average episode rewards is 164.292 	Total timesteps: 2995200 	 Percentage complete 99.840
+wandb: - 0.005 MB of 0.005 MB uploadedwandb: \ 0.005 MB of 0.005 MB uploadedwandb: | 0.005 MB of 0.005 MB uploadedwandb: / 0.019 MB of 0.421 MB uploaded (0.001 MB deduped)wandb: - 0.020 MB of 0.421 MB uploaded (0.001 MB deduped)wandb: \ 0.020 MB of 0.421 MB uploaded (0.001 MB deduped)wandb: | 0.421 MB of 0.421 MB uploaded (0.001 MB deduped)wandb:                                                                                
+wandb: 
+wandb: Run history:
+wandb:                actor_grad_norm ▁███▆▄▂▂▁▁▂▃▂▃▂▂▂▂▂▃▂▂▂▄▂▃▄▄▃▃▄▅▃▃▃▄▂▄▃▄
+wandb:            agent0/dist_to_goal █▃▂▁▁▁▁▂▁▂▂▂▂▂▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:      agent0/individual_rewards ▁▂▂▄▅▆▆▆▆▆▆▆▇▇▇▆▇▇▆▇▇▇█▇▇▇█▇███▇▇███████
+wandb:        agent0/min_time_to_goal ▅▆▄▇▁▆▂▄▆▄█▆▅▆▅▄▁▅▅▃▅▅▃█▇▄▃▄▄▅▄▃▃▄▅▇▄▆▄▆
+wandb:    agent0/num_agent_collisions ▃▇▆▂▃█▄▁█▄▅▃▆▅▃█▆▄▃▄▅█▅▆▇▄▄▃▅▂▅▃▄▅▄▃▅▆▅▆
+wandb: agent0/num_obstacle_collisions ▃▆▇█▂▆▂▃▅▃▆▅▁▅▂▂▃▅▂▂▃▂▂▂▄▃▂▅▃▂▅▄▃▃▄▄▂▄▅▂
+wandb:            agent0/time_to_goal █▇▇▅▂▂▁▂▂▂▃▃▂▃▂▂▁▂▂▂▂▂▁▂▂▁▂▂▁▁▁▂▂▂▂▂▁▂▁▂
+wandb:            agent1/dist_to_goal █▃▂▂▁▁▂▁▁▂▂▁▁▁▂▁▁▁▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:      agent1/individual_rewards ▁▂▂▄▅▆▆▇▆▅▅▆▇▆▆▆▇▇▆▆▇▇▇▇▇▇▇▇▇▇▇█▇▇████▇█
+wandb:        agent1/min_time_to_goal ▄▆▆▃▇▅▃█▇▆▃▄▆▃▆▄▆▆▄▃▅▅▆▆▅▃▆▃▄█▄▃▅▃▅▃▆▁▅▅
+wandb:    agent1/num_agent_collisions ▃▇▄▆▄▅▆▁▆▃▆▃▃▄▁█▄▃▆▃▅▂▄▄▅▃▄▃▃▁▄▄▅▄▃▅▂▃▄▂
+wandb: agent1/num_obstacle_collisions ▂▆▄█▇▄▂▂▃▃▅▄▅▅▃▃▃▃▂▂▆▄▃▁▆▄▂▂▇▆▂▄▃▃▃▁▄▁▂▄
+wandb:            agent1/time_to_goal █▇▇▅▄▂▂▂▂▃▃▂▂▂▃▂▂▂▂▂▂▂▂▂▂▂▂▁▂▂▂▂▂▂▂▁▂▁▂▂
+wandb:            agent2/dist_to_goal █▃▂▂▁▁▁▁▂▂▃▂▁▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+wandb:      agent2/individual_rewards ▁▂▃▄▅▇▇▇▆▆▆▇▇▆▇▆▇▇▇█▇▇█████████████████▇
+wandb:        agent2/min_time_to_goal ▃▂▂▃▄█▆▆▁▃▇▃▄▃▄▃▃▄▃▄▃▄▅▂▁▄▂▂▄▅▄▃▅▄▂▂▃▃▂▄
+wandb:    agent2/num_agent_collisions ▄▄▃▇▄▇▆▄▇▅█▄▃▄▃▇▄▄▆▂▅▇▃▃▇▂▃▃▄▃▆▄▅▁▁▄▅▄▆▃
+wandb: agent2/num_obstacle_collisions ▂▄▇▄▂▅▁▄▄▆▆▂▅▂▄▄█▃▂▆▂▂▄▄▃▆▃▂▇▁▃▄▂▄▂▂▃▂▁▃
+wandb:            agent2/time_to_goal █▇▇▄▃▂▂▂▂▂▃▂▂▂▃▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▂▂▁▁▁▁▁▁
+wandb:        average_episode_rewards ▁▂▂▄▅▆▇▇▆▆▆▇▇▆▆▆▇▇▇▇▇▇▇▇▇▇▇██▇██▇▇██████
+wandb:               critic_grad_norm ▅▄▃▇▆▅▄▅▅██▆▆▆▅▅▃▄▅▄▄▂▃▃▄▃▃▁▂▂▄▂▄▃▂▁▂▂▃▃
+wandb:                   dist_entropy █▅▄▄▃▂▂▂▂▂▃▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▂▂▁▁▁▁▁▁
+wandb:                    policy_loss ▁▂▂▂▃▆▄▄▃▄▅▇▅▆▅▄▅▅▅▆▆▅▇▆▆▆▇▆▆▆▆▆▆▆▆█▆█▆▆
+wandb:                          ratio █▇▆▆▆▅▁▂▅▃▁▁▂▃▄▅▃▃▂▄▄▃▃▆▄▃▅▅▄▄▄▅▃▅▄▄▅▄▃▃
+wandb:                     value_loss ▅▄▄█▆▅▃▃▄▄▅▄▃▄▃▃▂▃▃▂▂▁▂▂▂▂▂▁▂▁▂▁▂▂▁▁▁▂▂▁
+wandb: 
+wandb: Run summary:
+wandb:                actor_grad_norm 1.3136
+wandb:            agent0/dist_to_goal 0.03501
+wandb:      agent0/individual_rewards 4.24574
+wandb:        agent0/min_time_to_goal 0.49188
+wandb:    agent0/num_agent_collisions 0.34375
+wandb: agent0/num_obstacle_collisions 0.26562
+wandb:            agent0/time_to_goal 1.15625
+wandb:            agent1/dist_to_goal 0.02941
+wandb:      agent1/individual_rewards 4.60354
+wandb:        agent1/min_time_to_goal 0.47289
+wandb:    agent1/num_agent_collisions 0.24219
+wandb: agent1/num_obstacle_collisions 0.40625
+wandb:            agent1/time_to_goal 1.09297
+wandb:            agent2/dist_to_goal 0.05009
+wandb:      agent2/individual_rewards 3.83791
+wandb:        agent2/min_time_to_goal 0.47816
+wandb:    agent2/num_agent_collisions 0.25781
+wandb: agent2/num_obstacle_collisions 0.35156
+wandb:            agent2/time_to_goal 1.12969
+wandb:        average_episode_rewards 164.29245
+wandb:               critic_grad_norm 0.46021
+wandb:                   dist_entropy 0.39696
+wandb:                    policy_loss -0.02571
+wandb:                          ratio 0.98255
+wandb:                     value_loss 0.04297
+wandb: 
+wandb: 🚀 View run rmappo_informarl_seed0 at: https://wandb.ai/golde/enemy/runs/vyadsptj
+wandb: ⭐️ View project at: https://wandb.ai/golde/enemy
+wandb: Synced 6 W&B file(s), 0 media file(s), 2 artifact file(s) and 2 other file(s)
+wandb: Find logs at: ./onpolicy/results/GraphMPE/navigation_graph/rmappo/informarl/wandb/run-20240420_223016-vyadsptj/logs
+And I am ok

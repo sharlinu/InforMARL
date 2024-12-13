@@ -173,7 +173,7 @@ class GR_MAPPOPolicy:
 
         values, rnn_states_critic = self.critic.forward(
             cent_obs, node_obs, adj, share_agent_id, rnn_states_critic, masks
-        )
+        ) # adj is ndarray (384,9,9)
         return (values, actions, action_log_probs, rnn_states_actor, rnn_states_critic)
 
     def get_values(

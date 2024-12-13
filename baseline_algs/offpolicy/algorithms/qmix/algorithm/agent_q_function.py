@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
-from baselines.offpolicy.utils.util import to_torch
-from baselines.offpolicy.algorithms.utils.mlp import MLPBase
-from baselines.offpolicy.algorithms.utils.rnn import RNNBase
-from baselines.offpolicy.algorithms.utils.act import ACTLayer
+from baseline_algs.offpolicy.utils.util import to_torch
+from baseline_algs.offpolicy.algorithms.utils.mlp import MLPBase
+from baseline_algs.offpolicy.algorithms.utils.rnn import RNNBase
+from baseline_algs.offpolicy.algorithms.utils.act import ACTLayer
 
 
 class AgentQFunction(nn.Module):

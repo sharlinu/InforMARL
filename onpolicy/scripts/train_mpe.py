@@ -15,7 +15,7 @@ sys.path.append(os.path.abspath(os.getcwd()))
 from utils.utils import print_args, print_box, connected_to_internet
 from onpolicy.config import get_config
 from multiagent.MPE_env import MPEEnv, GraphMPEEnv, GymEnv
-from onpolicy.envs.env_wrappers import (
+from multiagent.env_wrappers import (
     SubprocVecEnv,
     DummyVecEnv,
     GraphSubprocVecEnv,
@@ -96,6 +96,9 @@ def parse_args(args, parser):
     parser.add_argument("--num_agents", type=int, default=2, help="number of players")
     parser.add_argument(
         "--num_obstacles", type=int, default=3, help="Number of obstacles"
+    )
+    parser.add_argument(
+        "--reward_sparsity", type=float, default=1, help="How sparse the dense rewards in continuous domain are"
     )
     parser.add_argument(
         "--collaborative",
@@ -219,7 +222,7 @@ def main(args):
         print_box("Creating wandboard...")
         run = wandb.init(
             config=all_args,
-            project=all_args.project_name,
+            project='enemy',
             # project=all_args.env_name,
             # entity=all_args.user_name,
             # notes=socket.gethostname(),

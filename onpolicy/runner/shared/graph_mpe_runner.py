@@ -79,6 +79,10 @@ class GMPERunner(Runner):
             total_num_steps = (
                 (episode + 1) * self.episode_length * self.n_rollout_threads
             )
+            if total_num_steps % 1000 == 0:
+                avg_rew = np.mean(self.buffer.rewards) * self.episode_length
+                with open("{}/reward_epymarl.txt".format(self.run_dir), "a") as f:
+                    f.write("{},{} \n".format(total_num_steps, avg_rew))
 
             # save model
             if episode % self.save_interval == 0 or episode == episodes - 1:
@@ -99,6 +103,8 @@ class GMPERunner(Runner):
                 )
                 self.log_train(train_infos, total_num_steps)
                 self.log_env(env_infos, total_num_steps)
+
+
 
             # eval
             if episode % self.eval_interval == 0 and self.use_eval:
