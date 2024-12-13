@@ -49,7 +49,8 @@ class MPERunner(Runner):
 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
-
+                print('rewards shape', rewards.shape)
+                print('env wrapper', type(self.envs))
                 data = (
                     obs,
                     rewards,
@@ -195,6 +196,7 @@ class MPERunner(Runner):
         else:
             share_obs = obs
 
+        # print('reward shape', rewards.shape)
         self.buffer.insert(
             share_obs,
             obs,

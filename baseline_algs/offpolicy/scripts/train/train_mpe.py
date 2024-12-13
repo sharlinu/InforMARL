@@ -11,10 +11,10 @@ import setproctitle
 import torch
 
 from utils.utils import print_args, print_box, connected_to_internet
-from baselines.offpolicy.config import get_config
-from baselines.offpolicy.utils.util import get_cent_act_dim, get_dim_from_space
+from baseline_algs.offpolicy.config import get_config
+from baseline_algs.offpolicy.utils.util import get_cent_act_dim, get_dim_from_space
 from multiagent.MPE_env import MPEEnv
-from baselines.offpolicy.envs.env_wrappers import DummyVecEnv, SubprocVecEnv
+from baseline_algs.offpolicy.envs.env_wrappers import DummyVecEnv, SubprocVecEnv
 
 
 def make_train_env(all_args):
@@ -175,10 +175,11 @@ def main(args):
         print("_" * 50)
         run = wandb.init(
             config=all_args,
-            project=all_args.project_name,
+            # project=all_args.project_name,
+            project='enemy',
             # project=all_args.env_name,
-            entity=all_args.user_name,
-            notes=socket.gethostname(),
+            # entity=all_args.user_name,
+            # notes=socket.gethostname(),
             name=str(all_args.algorithm_name)
             + "_"
             + str(all_args.experiment_name)

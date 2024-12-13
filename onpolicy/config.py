@@ -244,7 +244,7 @@ def get_config():
     parser.add_argument(
         "--use_wandb",
         action="store_false",
-        default=True,
+        default=False,
         help="[for wandb usage], by default True, will log date "
         "to wandb server. or else will use tensorboard to log data.",
     )
@@ -254,7 +254,7 @@ def get_config():
         "--env_name",
         type=str,
         default="MPE",
-        choices=["MPE", "GraphMPE"],
+        choices=["MPE", "GraphMPE", "Gym"],
         help="specify the name of environment",
     )
     parser.add_argument(

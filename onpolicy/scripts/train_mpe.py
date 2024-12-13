@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.getcwd()))
 
 from utils.utils import print_args, print_box, connected_to_internet
 from onpolicy.config import get_config
-from multiagent.MPE_env import MPEEnv, GraphMPEEnv
+from multiagent.MPE_env import MPEEnv, GraphMPEEnv, GymEnv
 from onpolicy.envs.env_wrappers import (
     SubprocVecEnv,
     DummyVecEnv,
@@ -32,6 +32,8 @@ def make_train_env(all_args: argparse.Namespace):
                 env = MPEEnv(all_args)
             elif all_args.env_name == "GraphMPE":
                 env = GraphMPEEnv(all_args)
+            elif all_args.env_name == "Gym":
+                env = GymEnv(all_args)
             else:
                 print(f"Can not support the {all_args.env_name} environment")
                 raise NotImplementedError
@@ -59,6 +61,8 @@ def make_eval_env(all_args: argparse.Namespace):
                 env = MPEEnv(all_args)
             elif all_args.env_name == "GraphMPE":
                 env = GraphMPEEnv(all_args)
+            elif all_args.env_name == 'Gym':
+                env = GymEnv(all_args)
             else:
                 print(f"Can not support the {all_args.env_name} environment")
                 raise NotImplementedError
@@ -217,8 +221,8 @@ def main(args):
             config=all_args,
             project=all_args.project_name,
             # project=all_args.env_name,
-            entity=all_args.user_name,
-            notes=socket.gethostname(),
+            # entity=all_args.user_name,
+            # notes=socket.gethostname(),
             name=str(all_args.algorithm_name)
             + "_"
             + str(all_args.experiment_name)

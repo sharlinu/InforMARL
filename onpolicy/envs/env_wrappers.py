@@ -150,6 +150,7 @@ def worker(remote, parent_remote, env_fn_wrapper):
         cmd, data = remote.recv()
         if cmd == "step":
             ob, reward, done, info = env.step(data)
+            print('informal worker', reward)
             if "bool" in done.__class__.__name__:
                 if done:
                     ob = env.reset()
@@ -288,6 +289,7 @@ class SubprocVecEnv(ShareVecEnv):
 
     def step_wait(self):
         results = [remote.recv() for remote in self.remotes]
+        # print('worker results', results[1].shape)
         self.waiting = False
         obs, rews, dones, infos = zip(*results)
         return np.stack(obs), np.stack(rews), np.stack(dones), infos

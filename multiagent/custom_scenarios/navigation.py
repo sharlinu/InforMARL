@@ -73,6 +73,7 @@ class Scenario(BaseScenario):
         self.num_agents = args.num_agents
         self.num_obstacles = args.num_obstacles
         self.collaborative = args.collaborative
+        # self.collaborative = False
         self.max_speed = args.max_speed
         self.collision_rew = args.collision_rew
         self.goal_rew = args.goal_rew

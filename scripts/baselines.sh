@@ -3,7 +3,7 @@
 # to get baseline results for for navigation environment for 3 agents
 # supports rmatd3, rmaddpg, qmix, matd3, maddpg, mqmix
 # Slurm sbatch options
-#SBATCH --job-name baselines
+#SBATCH --job-name baseline_algs
 #SBATCH -a 0-5
 # SBATCH --gres=gpu:volta:1
 ## SBATCH -n 10 # use with MPI # max cores request limit: -c 48 * 24; -n 48 * 24

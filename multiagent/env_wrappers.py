@@ -481,8 +481,10 @@ class SubprocVecEnv(VecEnv):
 
     def step_wait(self):
         results = [remote.recv() for remote in self.remotes]
+        print('results form remote', results)
         self.waiting = False
         obs, rews, dones, infos = zip(*results)
+        print('step wait', rews)
         return np.stack(obs), np.stack(rews), np.stack(dones), infos
 
     def reset(self):

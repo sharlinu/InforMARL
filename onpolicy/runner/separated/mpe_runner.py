@@ -46,7 +46,7 @@ class MPERunner(Runner):
 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
-
+                # print(actions_env)
                 data = (
                     obs,
                     rewards,
@@ -85,7 +85,14 @@ class MPERunner(Runner):
                 #     f"FPS: {int(total_num_steps / (end - start))}.\n")
 
                 env_infos = {}
-                if self.env_name == "MPE":
+                if self.env_name == "Gym":
+                    avg_ep_rews = []
+                    for agent_id in range(self.num_agents):
+                        avg_agent_ep_rew = (
+                            np.mean(self.buffer[agent_id].rewards) * self.episode_length
+                        )
+                        avg_ep_rews.append(avg_agent_ep_rew)
+                elif self.env_name == "MPE":
                     avg_ep_rews = []
                     for agent_id in range(self.num_agents):
                         idv_rews = []
@@ -353,6 +360,7 @@ class MPERunner(Runner):
             eval_obs, eval_rewards, eval_dones, eval_infos = self.eval_envs.step(
                 eval_actions_env
             )
+            self.eval_envs[0].render()
             eval_episode_rewards.append(eval_rewards)
 
             eval_rnn_states[eval_dones == True] = np.zeros(

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# baselines with mpnn
+# baseline_algs with mpnn
 
 # Slurm sbatch options
 #SBATCH --job-name mpnn

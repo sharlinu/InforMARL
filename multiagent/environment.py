@@ -646,10 +646,11 @@ class MultiAgentPPOEnv(MultiAgentBaseEnv):
         # all agents get total reward in cooperative case
         reward = np.sum(reward_n)
         if self.shared_reward:
+            print('sharing reward in informal env')
             reward_n = [
                 [reward]
             ] * self.n  # NOTE this line is different compared to origEnv
-
+        # print('informal ppo env', reward_n)
         return obs_n, reward_n, done_n, info_n
 
     def reset(self) -> Tuple[List, Union[None, np.ndarray]]:
@@ -1061,7 +1062,7 @@ class MultiAgentCADRLEnv(MultiAgentBaseEnv):
     #     if self.agents[agent_idx].done:
     #         return None
     #     else:
-    #         from baselines.cadrl.cadrl_navigation.utils_cadrl import JointState
+    #         from baseline_algs.cadrl.cadrl_navigation.utils_cadrl import JointState
     #         return JointState(*(self.agents[agent_idx].get_full_state() +
     #                           self.agents[1-agent_idx].get_observable_state()))
 
@@ -1292,7 +1293,7 @@ class MultiAgentDGN_ATOCEnv(MultiAgentGraphEnv):
 class MultiAgentOffPolicyEnv(MultiAgentBaseEnv):
     metadata = {"render.modes": ["human", "rgb_array"]}
     """
-        This Environment is only for the off-policy baselines
+        This Environment is only for the off-policy baseline_algs
         The only difference is the way in which the `rewards` and `dones` 
         are returned. Here they are returned as a list of `dones` and `rewards` 
         instead of just scalars
@@ -1394,7 +1395,7 @@ class MultiAgentOffPolicyEnv(MultiAgentBaseEnv):
 class MultiAgentMPNNEnv(MultiAgentOrigEnv):
     metadata = {"render.modes": ["human", "rgb_array"]}
     """ 
-        This Environment is only for the MPNN baselines
+        This Environment is only for the MPNN baseline_algs
         discrete_action: bool
             If the action space is discrete or not
     """
