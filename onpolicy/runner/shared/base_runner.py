@@ -75,7 +75,7 @@ class Runner(object):
                 if not os.path.exists(self.save_dir):
                     os.makedirs(self.save_dir)
 
-        if self.all_args.env_name == "GraphMPE":
+        if self.all_args.env_name in ["GraphMPE", "GraphGym"]:
             from onpolicy.algorithms.graph_mappo import GR_MAPPO as TrainAlgo
             from onpolicy.algorithms.graph_MAPPOPolicy import GR_MAPPOPolicy as Policy
         else:
@@ -89,7 +89,7 @@ class Runner(object):
             share_observation_space = self.envs.observation_space[0]
 
         # policy network
-        if self.all_args.env_name == "GraphMPE":
+        if self.all_args.env_name in ["GraphMPE", "GraphGym"]:
             self.policy = Policy(
                 self.all_args,
                 self.envs.observation_space[0],
@@ -117,7 +117,7 @@ class Runner(object):
         self.trainer = TrainAlgo(self.all_args, self.policy, device=self.device)
 
         # buffer
-        if self.all_args.env_name == "GraphMPE":
+        if self.all_args.env_name in ["GraphMPE", "GraphGym"]:
             self.buffer = GraphReplayBuffer(
                 self.all_args,
                 self.num_agents,

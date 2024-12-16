@@ -92,7 +92,10 @@ class GMPERunner(Runner):
             if episode % self.log_interval == 0:
                 end = time.time()
 
-                env_infos = self.process_infos(infos)
+                if  'MPE' in self.env_name:
+                    env_infos = self.process_infos(infos)
+                    self.log_env(env_infos, total_num_steps)
+
 
                 avg_ep_rew = np.mean(self.buffer.rewards) * self.episode_length
                 train_infos["average_episode_rewards"] = avg_ep_rew
@@ -102,7 +105,6 @@ class GMPERunner(Runner):
                     f"Percentage complete {total_num_steps / self.num_env_steps * 100:.3f}"
                 )
                 self.log_train(train_infos, total_num_steps)
-                self.log_env(env_infos, total_num_steps)
 
 
 

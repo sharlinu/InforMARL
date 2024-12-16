@@ -819,7 +819,6 @@ if __name__ == "__main__":
         obs_n, agent_id_n, node_obs_n, adj_n, reward_n, done_n, info_n = env.step(act_n)
         # print(obs_n[0].shape, node_obs_n[0].shape, adj_n[0].shape)
         adj = [torch.tensor(np.array(adj_n[i]), dtype=torch.int64) for i in range(2)]
-
         graph = [to_gd(adj[agent], node_obs_n[agent]) for agent in range(2)]
 
         # render all agent views

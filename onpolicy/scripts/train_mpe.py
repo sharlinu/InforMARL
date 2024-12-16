@@ -14,7 +14,7 @@ sys.path.append(os.path.abspath(os.getcwd()))
 
 from utils.utils import print_args, print_box, connected_to_internet
 from onpolicy.config import get_config
-from multiagent.MPE_env import MPEEnv, GraphMPEEnv, GymEnv
+from multiagent.MPE_env import MPEEnv, GraphMPEEnv, GymEnv, GraphGymEnv
 from multiagent.env_wrappers import (
     SubprocVecEnv,
     DummyVecEnv,
@@ -34,6 +34,8 @@ def make_train_env(all_args: argparse.Namespace):
                 env = GraphMPEEnv(all_args)
             elif all_args.env_name == "Gym":
                 env = GymEnv(all_args)
+            elif all_args.env_name == "GraphGym":
+                env = GraphGymEnv(all_args)
             else:
                 print(f"Can not support the {all_args.env_name} environment")
                 raise NotImplementedError
@@ -43,11 +45,11 @@ def make_train_env(all_args: argparse.Namespace):
         return init_env
 
     if all_args.n_rollout_threads == 1:
-        if all_args.env_name == "GraphMPE":
+        if all_args.env_name in ["GraphMPE", "GraphGym"]:
             return GraphDummyVecEnv([get_env_fn(0)])
         return DummyVecEnv([get_env_fn(0)])
     else:
-        if all_args.env_name == "GraphMPE":
+        if all_args.env_name in ["GraphMPE", "GraphGym"]:
             return GraphSubprocVecEnv(
                 [get_env_fn(i) for i in range(all_args.n_rollout_threads)]
             )
@@ -63,6 +65,8 @@ def make_eval_env(all_args: argparse.Namespace):
                 env = GraphMPEEnv(all_args)
             elif all_args.env_name == 'Gym':
                 env = GymEnv(all_args)
+            elif all_args.env_name == 'GraphGym':
+                env = GraphGymEnv(all_args)
             else:
                 print(f"Can not support the {all_args.env_name} environment")
                 raise NotImplementedError
@@ -72,11 +76,11 @@ def make_eval_env(all_args: argparse.Namespace):
         return init_env
 
     if all_args.n_eval_rollout_threads == 1:
-        if all_args.env_name == "GraphMPE":
+        if all_args.env_name in ["GraphMPE", "GraphGym"]:
             return GraphDummyVecEnv([get_env_fn(0)])
         return DummyVecEnv([get_env_fn(0)])
     else:
-        if all_args.env_name == "GraphMPE":
+        if all_args.env_name in ["GraphMPE", "GraphGym"]:
             return GraphSubprocVecEnv(
                 [get_env_fn(i) for i in range(all_args.n_rollout_threads)]
             )
@@ -150,12 +154,13 @@ def parse_args(args, parser):
 def main(args):
     parser = get_config()
     all_args, parser = parse_args(args, parser)
-    if all_args.env_name == "GraphMPE":
+    if all_args.env_name in ["GraphMPE", "GraphGym"]:
         from onpolicy.config import graph_config
 
         all_args, parser = graph_config(args, parser)
 
     if all_args.algorithm_name in ["rmappo"]:
+        print(all_args.use_recurrent_policy, all_args.use_naive_recurrent_policy)
         assert (
             all_args.use_recurrent_policy or all_args.use_naive_recurrent_policy
         ), "check recurrent policy!"
@@ -284,12 +289,12 @@ def main(args):
 
     # run experiments
     if all_args.share_policy:
-        if all_args.env_name == "GraphMPE":
+        if all_args.env_name in ["GraphMPE", "GraphGym"]:
             from onpolicy.runner.shared.graph_mpe_runner import GMPERunner as Runner
         else:
             from onpolicy.runner.shared.mpe_runner import MPERunner as Runner
     else:
-        if all_args.env_name == "GraphMPE":
+        if all_args.env_name in ["GraphMPE", "GraphGym"]:
             raise NotImplementedError
         from onpolicy.runner.separated.mpe_runner import MPERunner as Runner
 

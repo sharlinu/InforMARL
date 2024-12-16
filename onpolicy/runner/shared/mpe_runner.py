@@ -49,8 +49,8 @@ class MPERunner(Runner):
 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
-                print('rewards shape', rewards.shape)
-                print('env wrapper', type(self.envs))
+                # print('rewards shape', rewards.shape)
+                # print('env wrapper', type(self.envs))
                 data = (
                     obs,
                     rewards,
@@ -83,7 +83,9 @@ class MPERunner(Runner):
             if episode % self.log_interval == 0:
                 end = time.time()
 
-                env_infos = self.process_infos(infos)
+                if  'MPE' in self.env_name:
+                    env_infos = self.process_infos(infos)
+                    self.log_env(env_infos, total_num_steps)
 
                 avg_ep_rew = np.mean(self.buffer.rewards) * self.episode_length
                 train_infos["average_episode_rewards"] = avg_ep_rew
@@ -93,7 +95,7 @@ class MPERunner(Runner):
                     f"Percentage complete {total_num_steps / self.num_env_steps * 100:.3f}"
                 )
                 self.log_train(train_infos, total_num_steps)
-                self.log_env(env_infos, total_num_steps)
+
 
             # eval
             if episode % self.eval_interval == 0 and self.use_eval:
@@ -271,6 +273,9 @@ class MPERunner(Runner):
             eval_obs, eval_rewards, eval_dones, eval_infos = self.eval_envs.step(
                 eval_actions_env
             )
+            # print(eval_rewards, eval_actions_env[0])
+            # self.eval_envs.render()
+            # time.sleep(0.5)
             eval_episode_rewards.append(eval_rewards)
 
             eval_rnn_states[eval_dones == True] = np.zeros(

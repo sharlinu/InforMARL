@@ -646,7 +646,7 @@ class MultiAgentPPOEnv(MultiAgentBaseEnv):
         # all agents get total reward in cooperative case
         reward = np.sum(reward_n)
         if self.shared_reward:
-            print('sharing reward in informal env')
+            # print('sharing reward in informal env')
             reward_n = [
                 [reward]
             ] * self.n  # NOTE this line is different compared to origEnv

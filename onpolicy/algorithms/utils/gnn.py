@@ -520,7 +520,7 @@ class RelationalConvNet(nn.Module):
         #     root_weight=True,
         # )
         print(f'Initialising rgcn with {hidden_size} dimensions')
-        self.gnn1 = RGCNConv(hidden_size, hidden_size, 5) #3rd argument is number of edge types # FIXME: this is manually coded
+        self.gnn1 = RGCNConv(hidden_size, hidden_size, 6) #3rd argument is number of edge types # FIXME: this is manually coded
 
 
 

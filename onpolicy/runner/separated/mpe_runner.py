@@ -85,7 +85,7 @@ class MPERunner(Runner):
                 #     f"FPS: {int(total_num_steps / (end - start))}.\n")
 
                 env_infos = {}
-                if self.env_name == "Gym":
+                if 'Gym' in self.env_name:
                     avg_ep_rews = []
                     for agent_id in range(self.num_agents):
                         avg_agent_ep_rew = (

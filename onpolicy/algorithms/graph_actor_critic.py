@@ -86,6 +86,7 @@ class GR_Actor(nn.Module):
 
         if self.use_gnn:
             self.gnn_base = RGCNBase(args, node_obs_shape, edge_dim, args.actor_graph_aggr)
+            # self.gnn_base = GNNBase(args, node_obs_shape, edge_dim, args.actor_graph_aggr)
             gnn_out_dim = self.gnn_base.out_dim  # output shape from gnns
             mlp_base_in_dim = gnn_out_dim + obs_shape[0] # final layer of critic receives graph and raw observation
             self.base = MLPBase(args, obs_shape=None, override_obs_dim=mlp_base_in_dim) # final layer of critic
@@ -332,6 +333,8 @@ class GR_Critic(nn.Module):
 
         # TODO modify output of GNN to be some kind of global aggregation
         self.gnn_base = RGCNBase(args, node_obs_shape, edge_dim, args.critic_graph_aggr) # edge_dim =1 node_obs_shape = 7,
+        # self.gnn_base = GNNBase(args, node_obs_shape, edge_dim,
+        #                          args.critic_graph_aggr)  # edge_dim =1 node_obs_shape = 7,
         gnn_out_dim = self.gnn_base.out_dim
         # if node aggregation, then concatenate aggregated node features for all agents
         # otherwise, the aggregation is done for the whole graph
