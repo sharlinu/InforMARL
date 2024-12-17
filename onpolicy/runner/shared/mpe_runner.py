@@ -32,11 +32,16 @@ class MPERunner(Runner):
         )
 
         # This is where the episodes are actually run.
+        l_rewards = []
+        logged_steps = 0
         for episode in range(episodes):
+            current_steps = np.zeros(self.n_rollout_threads)
+            episode_rewards = np.zeros((self.n_rollout_threads, self.num_agents, 1))
             if self.use_linear_lr_decay:
                 self.trainer.policy.lr_decay(episode, episodes)
 
             for step in range(self.episode_length):
+                current_steps +=1
                 # Sample actions
                 (
                     values,
@@ -49,6 +54,7 @@ class MPERunner(Runner):
 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
+                episode_rewards += rewards
                 # print('rewards shape', rewards.shape)
                 # print('env wrapper', type(self.envs))
                 data = (
@@ -62,9 +68,23 @@ class MPERunner(Runner):
                     rnn_states,
                     rnn_states_critic,
                 )
+                # add episodic rewards
+                for i, d in enumerate(dones[:,0]):
+                    if d:
+                        logged_steps += current_steps[i]
+                        l_rewards.append(episode_rewards[i].sum())
+                        current_steps[i] = 0
+                        episode_rewards[i] = 0
 
                 # insert data into buffer
                 self.insert(data)
+
+            for i, s in enumerate(current_steps):
+                if s==self.episode_length:
+                    logged_steps += self.episode_length
+                    l_rewards.append(episode_rewards[i].sum())
+                    current_steps[i] = 0
+                    episode_rewards[i] = 0
 
             # compute return and update network
             self.compute()
@@ -89,8 +109,15 @@ class MPERunner(Runner):
 
                 avg_ep_rew = np.mean(self.buffer.rewards) * self.episode_length
                 train_infos["average_episode_rewards"] = avg_ep_rew
+                avg_episode_rewards = sum(l_rewards)/len(l_rewards)
+                train_infos["average_episode_rewards"] = avg_episode_rewards
+                train_infos["average_episode_rewards"] = avg_episode_rewards
+                train_infos["logged_steps"] = logged_steps
+
                 print(
                     f"Average episode rewards is {avg_ep_rew:.3f} \t"
+                    f"Average episodic rewards are {avg_episode_rewards:.3f} \t"
+                    f"Logged steps {logged_steps} \t"
                     f"Total timesteps: {total_num_steps} \t "
                     f"Percentage complete {total_num_steps / self.num_env_steps * 100:.3f}"
                 )

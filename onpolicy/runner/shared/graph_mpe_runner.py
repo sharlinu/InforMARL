@@ -32,11 +32,16 @@ class GMPERunner(Runner):
         )
 
         # This is where the episodes are actually run.
+        l_rewards =[]
+
+        logged_steps = 0
         for episode in range(episodes):
+            current_steps = np.zeros(self.n_rollout_threads)
+            episode_rewards = np.zeros((self.n_rollout_threads, self.num_agents, 1))
             if self.use_linear_lr_decay:
                 self.trainer.policy.lr_decay(episode, episodes)
-
             for step in range(self.episode_length):
+                current_steps +=1
                 # Sample actions
                 (
                     values,
@@ -51,7 +56,8 @@ class GMPERunner(Runner):
                 obs, agent_id, node_obs, adj, rewards, dones, infos = self.envs.step(
                     actions_env
                 )
-
+                episode_rewards += rewards
+                # count = count + dones * np.ones(dones.shape)
                 data = (
                     obs,
                     agent_id,
@@ -67,14 +73,28 @@ class GMPERunner(Runner):
                     rnn_states,
                     rnn_states_critic,
                 )
+                # add episodic rewards
+                for i, d in enumerate(dones[:,0]):
+                    if d:
+                        logged_steps += current_steps[i]
+                        l_rewards.append(episode_rewards[i].sum())
+                        current_steps[i] = 0
+                        episode_rewards[i] = 0
 
                 # insert data into buffer
                 self.insert(data)
 
+            # add all episodes which timed out
+            for i, s in enumerate(current_steps):
+                if s==self.episode_length:
+                    logged_steps += self.episode_length
+                    l_rewards.append(episode_rewards[i].sum())
+                    current_steps[i] = 0
+                    episode_rewards[i] = 0
+
             # compute return and update network
             self.compute()
             train_infos = self.train()
-
             # post process
             total_num_steps = (
                 (episode + 1) * self.episode_length * self.n_rollout_threads
@@ -99,11 +119,17 @@ class GMPERunner(Runner):
 
                 avg_ep_rew = np.mean(self.buffer.rewards) * self.episode_length
                 train_infos["average_episode_rewards"] = avg_ep_rew
+                avg_episode_rewards = sum(l_rewards)/len(l_rewards)
+                train_infos["average_episode_rewards"] = avg_episode_rewards
+                train_infos["logged_steps"] = logged_steps
                 print(
                     f"Average episode rewards is {avg_ep_rew:.3f} \t"
+                    f"Average episodic rewards are {avg_episode_rewards:.3f} \t"
+                    f"Logged steps {logged_steps} \t"
                     f"Total timesteps: {total_num_steps} \t "
                     f"Percentage complete {total_num_steps / self.num_env_steps * 100:.3f}"
                 )
+                l_rewards.clear()
                 self.log_train(train_infos, total_num_steps)
 
 

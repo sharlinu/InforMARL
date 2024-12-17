@@ -22,15 +22,15 @@ from macpp.core import wrappers
 from multiagent.custom_scenarios import load
 
 def GymEnv(args: argparse.Namespace):
-    env = gym.make('macpp-5x5-2a-1p-1o-v3')
-    # env = wrappers.FlatObs(env)
+    env = gym.make('macpp-10x10-2a-1p-2o-v3')
+    env = wrappers.FlatObs(env)
 
     # env.shared_observation_space = [env.observation_space for _ in range(2)]
     # env.share_observation_space = [gym.spaces.]
     return env
 
 def GraphGymEnv(args: argparse.Namespace):
-    env = gym.make('macpp-5x5-2a-1p-1o-v3')
+    env = gym.make('macpp-10x10-2a-1p-2o-v3')
     attr = {'agent': 0,
             'objects': 1,
             'goals': 2,
